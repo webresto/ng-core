@@ -8,15 +8,20 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 
+import { EventerService } from '../services/eventer.service';
+import { EventMessage } from '../services/event-message';
+
 import { Observable, throwError } from 'rxjs';
 import { finalize, tap, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
+  constructor(
+    private eventer:EventerService
+  ) {}
 
-    console.info('ServerErrorInterceptor', req);
+  intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
 
     return next.handle(req)
       .pipe(
@@ -31,11 +36,12 @@ export class ServerErrorInterceptor implements HttpInterceptor {
             }
           }
         ),
-        catchError(this.handleError)
+        catchError(this.handleError.bind(this))
       );
   }
 
   private handleError(error: HttpErrorResponse) {
+
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -53,6 +59,14 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
+
+      if(error.status == 401) {
+        this.eventer.emitMessageEvent(
+          new EventMessage('Unauthorized', '', '')
+        );
+
+        return throwError('Необходимо пройти авторизацию');
+      }
     }
     // return an observable with a user-facing error message
     return throwError('Что-то пошло не так. Повторите попытку позже.');
