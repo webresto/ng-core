@@ -14,9 +14,11 @@ export class NetService {
     this.config = config;
   }
 
-  public  get(url:string):Observable<any> {
+  public  get(url:string, isApi:boolean = true):Observable<any> {
 
-    url = this.config.url + this.config.prefix + this.config.versionModule + url;
+    url = isApi
+      ? this.config.url + this.config.prefix + this.config.versionModule + url
+      : this.config.url + url;
 
     return this.http.get<any>(url)
       .pipe(
@@ -24,17 +26,21 @@ export class NetService {
       );
   }
 
-  public  put(url:string, data:any):Observable<any> {
+  public  put(url:string, data:any, isApi:boolean = true):Observable<any> {
 
-    url = this.config.url + this.config.prefix + this.config.versionModule + url;
+    url = isApi
+      ? this.config.url + this.config.prefix + this.config.versionModule + url
+      : this.config.url + url;
 
     return this.http.put(url, data);
 
   }
 
-  public  post(url:string, data:any):Observable<any> {
+  public  post(url:string, data:any, isApi:boolean = true):Observable<any> {
 
-    url = this.config.url + this.config.prefix + this.config.versionModule + url;
+    url = isApi
+      ? this.config.url + this.config.prefix + this.config.versionModule + url
+      : this.config.url + url;
 
     return this.http.post(url, data);
   }
