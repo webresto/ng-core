@@ -5,5 +5,18 @@
     "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
     "@angular/core": "^6.0.0-rc.0 || ^6.0.0",
     "ngx-store": "^2.0.0"
+  },
+  "main": "dist/bundles/sails-resto-ng-core.umd.js",
+  "module": "dist/fesm5/sails-resto-ng-core.js",
+  "es2015": "dist/fesm2015/sails-resto-ng-core.js",
+  "esm5": "dist/esm5/sails-resto-ng-core.js",
+  "esm2015": "dist/esm2015/sails-resto-ng-core.js",
+  "fesm5": "dist/fesm5/sails-resto-ng-core.js",
+  "fesm2015": "dist/fesm2015/sails-resto-ng-core.js",
+  "typings": "dist/sails-resto-ng-core.d.ts",
+  "metadata": "dist/sails-resto-ng-core.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
   }
 }
