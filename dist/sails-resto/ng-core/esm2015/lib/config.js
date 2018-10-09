@@ -3,6 +3,7 @@
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import * as i0 from "@angular/core";
 export class Config {
     /**
@@ -12,7 +13,9 @@ export class Config {
         this.port = 80;
         this.prefix = "api/";
         this.versionModule = "0.5";
-        this.url = endpointUrl;
+        endpointUrl.subscribe(url => {
+            this.url = url;
+        });
     }
 }
 Config.decorators = [
@@ -22,7 +25,7 @@ Config.decorators = [
 ];
 /** @nocollapse */
 Config.ctorParameters = () => [
-    { type: String, decorators: [{ type: Inject, args: ['ApiDomain',] }] }
+    { type: BehaviorSubject, decorators: [{ type: Inject, args: ['ApiDomain',] }] }
 ];
 /** @nocollapse */ Config.ngInjectableDef = i0.defineInjectable({ factory: function Config_Factory() { return new Config(i0.inject("ApiDomain")); }, token: Config, providedIn: "root" });
 if (false) {
@@ -36,4 +39,4 @@ if (false) {
     Config.prototype.versionModule;
 }
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uZmlnLmpzIiwic291cmNlUm9vdCI6Im5nOi8vQHNhaWxzLXJlc3RvL25nLWNvcmUvIiwic291cmNlcyI6WyJsaWIvY29uZmlnLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUUsTUFBTSxFQUFDLFVBQVUsRUFBRSxNQUFNLGVBQWUsQ0FBQzs7QUFLbEQsTUFBTTs7OztJQU1KLFlBQWlDLFdBQWtCO29CQUpyQyxFQUFFO3NCQUNBLE1BQU07NkJBQ04sS0FBSztRQUduQixJQUFJLENBQUMsR0FBRyxHQUFHLFdBQVcsQ0FBQztLQUN4Qjs7O1lBWkYsVUFBVSxTQUFDO2dCQUNWLFVBQVUsRUFBRSxNQUFNO2FBQ25COzs7O3lDQVFjLE1BQU0sU0FBQyxXQUFXIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSW5qZWN0LEluamVjdGFibGUgfSBmcm9tICdAYW5ndWxhci9jb3JlJztcbkBJbmplY3RhYmxlKHtcbiAgcHJvdmlkZWRJbjogJ3Jvb3QnXG59KVxuXG5leHBvcnQgY2xhc3MgQ29uZmlnIHtcbiAgdXJsOmFueTtcbiAgcG9ydDpudW1iZXIgPSA4MDtcbiAgcHJlZml4OnN0cmluZyA9IFwiYXBpL1wiO1xuICB2ZXJzaW9uTW9kdWxlID0gXCIwLjVcIjtcblxuICBjb25zdHJ1Y3RvcihASW5qZWN0KCdBcGlEb21haW4nKSBlbmRwb2ludFVybDpzdHJpbmcpIHtcbiAgICB0aGlzLnVybCA9IGVuZHBvaW50VXJsO1xuICB9XG5cblxufVxuIl19
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29uZmlnLmpzIiwic291cmNlUm9vdCI6Im5nOi8vQHNhaWxzLXJlc3RvL25nLWNvcmUvIiwic291cmNlcyI6WyJsaWIvY29uZmlnLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSxPQUFPLEVBQUUsTUFBTSxFQUFDLFVBQVUsRUFBRSxNQUFNLGVBQWUsQ0FBQztBQUNsRCxPQUFPLEVBQUUsZUFBZSxFQUFFLE1BQU0sTUFBTSxDQUFDOztBQUt2QyxNQUFNOzs7O0lBTUosWUFBaUMsV0FBZ0M7b0JBSm5ELEVBQUU7c0JBQ0EsTUFBTTs2QkFDTixLQUFLO1FBR25CLFdBQVcsQ0FBQyxTQUFTLENBQUMsR0FBRyxDQUFBLEVBQUU7WUFDekIsSUFBSSxDQUFDLEdBQUcsR0FBRyxHQUFHLENBQUM7U0FDaEIsQ0FBQyxDQUFBO0tBQ0g7OztZQWRGLFVBQVUsU0FBQztnQkFDVixVQUFVLEVBQUUsTUFBTTthQUNuQjs7OztZQUhRLGVBQWUsdUJBV1QsTUFBTSxTQUFDLFdBQVciLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBJbmplY3QsSW5qZWN0YWJsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgQmVoYXZpb3JTdWJqZWN0IH0gZnJvbSAncnhqcyc7XG5ASW5qZWN0YWJsZSh7XG4gIHByb3ZpZGVkSW46ICdyb290J1xufSlcblxuZXhwb3J0IGNsYXNzIENvbmZpZyB7XG4gIHVybDphbnk7XG4gIHBvcnQ6bnVtYmVyID0gODA7XG4gIHByZWZpeDpzdHJpbmcgPSBcImFwaS9cIjtcbiAgdmVyc2lvbk1vZHVsZSA9IFwiMC41XCI7XG5cbiAgY29uc3RydWN0b3IoQEluamVjdCgnQXBpRG9tYWluJykgZW5kcG9pbnRVcmw6QmVoYXZpb3JTdWJqZWN0PGFueT4pIHtcbiAgICBlbmRwb2ludFVybC5zdWJzY3JpYmUodXJsPT57XG4gICAgICB0aGlzLnVybCA9IHVybDtcbiAgICB9KSAgXG4gIH1cblxuXG59XG4iXX0=

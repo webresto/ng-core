@@ -1,4 +1,5 @@
 import { Inject,Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,8 +10,10 @@ export class Config {
   prefix:string = "api/";
   versionModule = "0.5";
 
-  constructor(@Inject('ApiDomain') endpointUrl:string) {
-    this.url = endpointUrl;
+  constructor(@Inject('ApiDomain') endpointUrl:BehaviorSubject<any>) {
+    endpointUrl.subscribe(url=>{
+      this.url = url;
+    })  
   }
 
 
