@@ -66,6 +66,14 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         );
 
         return throwError('Необходимо пройти авторизацию');
+      }else if((error.status == 400 || error.status == 500)
+        && error.error
+        && error.error.message
+        && error.error.message.title
+        && error.error.message.body) {
+        this.eventer.emitMessageEvent(
+          new EventMessage('error', error.error.message.title, error.error.message.body)
+        );
       }
     }
     // return an observable with a user-facing error message
