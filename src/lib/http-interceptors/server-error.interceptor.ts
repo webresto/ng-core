@@ -69,6 +69,6 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       }
     }
     // return an observable with a user-facing error message
-    return throwError(error);
+    return throwError(error.error);
   };
 }
