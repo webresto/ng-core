@@ -29,7 +29,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
           event => {
             if(event instanceof HttpResponse) {
 
-              if(event.body.status && event.body.message) {
+              if(event.body.status && event.body.message && event.body.message[0]) {
                 throw new Error(event.body.message[0]);
               }
 
