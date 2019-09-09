@@ -13,12 +13,14 @@ import { EventMessage } from '../services/event-message';
 
 import { Observable, throwError } from 'rxjs';
 import { finalize, tap, catchError } from 'rxjs/operators';
+import { StateService } from "../services/state.service";
 
 @Injectable()
 export class MessageInterceptor implements HttpInterceptor {
 
   constructor(
-    private eventer:EventerService
+    private eventer:EventerService,
+    private state:StateService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
@@ -28,6 +30,26 @@ export class MessageInterceptor implements HttpInterceptor {
         tap(
           event => {
             if(event instanceof HttpResponse) {
+              if(event.body.enable
+                && typeof event.body.title !== 'undefined'
+                && typeof event.body.description !== 'undefined'
+                && typeof event.body.startDate !== 'undefined'
+                && typeof event.body.stopDate !== 'undefined') {
+
+                const currentTime = new Date().getTime(),
+                      startTime = new Date(event.body.startDate).getTime(),
+                      stopTime = new Date(event.body.stopDate).getTime();
+
+                if(currentTime > startTime && currentTime < stopTime) {
+                  this.state.maintenance$.next({
+                    title: event.body.title,
+                    description: event.body.description
+                  });
+                }
+
+              }
+
+
               if(event.body.message
                 && event.body.message.body
                 && event.body.message.title
