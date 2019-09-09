@@ -1,11 +1,11 @@
-# @sails-resto/ng-core
+# @webresto/ng-core
 ## Установка модуля
 Модуль устанавливается с Git репозитория, в папку node_modules
 ## Подключение модуля в проект
 Добавьте следующие в ваш app.module.ts
 
 ~~~ javascript
-import { ngCoreHttpInterceptorProviders } from '@sails-resto/ng-core';
+import { ngCoreHttpInterceptorProviders } from '@webresto/ng-core';
 ~~~
 ~~~ javascript  
 providers: [
@@ -15,9 +15,9 @@ providers: [
 ~~~
 
 
-## Пример использования @sails-resto/ng-core в своих модулях
+## Пример использования @webresto/ng-core в своих модулях
 ~~~ javascript
-import { NetService, EventerService, EventMessage } from '@sails-resto/ng-core';
+import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 import { tap } from 'rxjs/operators';
 ..........
 constructor(
