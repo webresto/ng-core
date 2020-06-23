@@ -65,7 +65,11 @@ export class ServerErrorInterceptor implements HttpInterceptor {
           new EventMessage('Unauthorized', '', '')
         );
 
-        return throwError('Необходимо пройти авторизацию');
+        return throwError(
+          error.error && error.error.title
+            ? error.error.title
+            : 'Необходимо пройти авторизацию'
+        );
       }else if((error.status == 400 || error.status == 500)
         && error.error
         && error.error.message
