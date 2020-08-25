@@ -55,7 +55,8 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       if(currentTime > startTime && currentTime < stopTime) {
         this.state.maintenance$.next({
           title: error.error.title,
-          description: error.error.description
+          description: error.error.description,
+          social: error.error.social
         });
       }
 
