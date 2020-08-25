@@ -15,6 +15,4 @@ export class Config {
       this.url = url;
     })  
   }
-
-
 }

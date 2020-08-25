@@ -13,12 +13,14 @@ import { EventMessage } from '../services/event-message';
 
 import { Observable, throwError } from 'rxjs';
 import { finalize, tap, catchError } from 'rxjs/operators';
+import { StateService } from "../services/state.service";
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
 
   constructor(
-    private eventer:EventerService
+    private eventer:EventerService,
+    private state:StateService
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
@@ -28,11 +30,9 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         tap(
           event => {
             if(event instanceof HttpResponse) {
-
               if(event.body.status && event.body.message && event.body.message[0]) {
                 throw new Error(event.body.message[0]);
               }
-
             }
           }
         ),
@@ -41,6 +41,26 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: HttpErrorResponse) {
+
+    if(error.error.enable
+      && typeof error.error.title !== 'undefined'
+      && typeof error.error.description !== 'undefined'
+      && typeof error.error.startDate !== 'undefined'
+      && typeof error.error.stopDate !== 'undefined') {
+
+      const currentTime = new Date().getTime(),
+        startTime = new Date(error.error.startDate).getTime(),
+        stopTime = new Date(error.error.stopDate).getTime();
+
+      if(currentTime > startTime && currentTime < stopTime) {
+        this.state.maintenance$.next({
+          title: error.error.title,
+          description: error.error.description
+        });
+      }
+
+      return throwError(error.error);
+    }
 
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

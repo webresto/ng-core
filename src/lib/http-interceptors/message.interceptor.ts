@@ -46,7 +46,6 @@ export class MessageInterceptor implements HttpInterceptor {
                     description: event.body.description
                   });
                 }
-
               }
 
 
