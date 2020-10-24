@@ -1,12 +1,8 @@
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
 /*
  * Public API Surface of ng-core
  */
-export { EventMessage, EventerService, StateService, NetService, RestoStorageService } from './lib/services';
-export { NgCoreModule } from './lib/ng-core.module';
-export { ngCoreHttpInterceptorProviders } from './lib/http-interceptors/index';
-export { ServerErrorInterceptor } from './lib/http-interceptors/server-error.interceptor';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0B3ZWJyZXN0by9uZy1jb3JlLyIsInNvdXJjZXMiOlsicHVibGljX2FwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBSUEsNEZBQWMsZ0JBQWdCLENBQUM7QUFDL0IsNkJBQWMsc0JBQXNCLENBQUM7QUFDckMsK0NBQWMsK0JBQStCLENBQUM7QUFDOUMsdUNBQWMsa0RBQWtELENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogUHVibGljIEFQSSBTdXJmYWNlIG9mIG5nLWNvcmVcbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2xpYi9zZXJ2aWNlcyc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9uZy1jb3JlLm1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9odHRwLWludGVyY2VwdG9ycy9pbmRleCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9odHRwLWludGVyY2VwdG9ycy9zZXJ2ZXItZXJyb3IuaW50ZXJjZXB0b3InOyJdfQ==
+export * from './lib/services';
+export * from './lib/ng-core.module';
+export * from './lib/http-interceptors/index';
+export * from './lib/http-interceptors/server-error.interceptor';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJDOi9Vc2Vycy9Qcm9mZXNzaW9uYWwvZnJvbnRlbmQvcHJvamVjdHMvd2VicmVzdG8vbmctY29yZS9zcmMvIiwic291cmNlcyI6WyJwdWJsaWNfYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOztHQUVHO0FBRUgsY0FBYyxnQkFBZ0IsQ0FBQztBQUMvQixjQUFjLHNCQUFzQixDQUFDO0FBQ3JDLGNBQWMsK0JBQStCLENBQUM7QUFDOUMsY0FBYyxrREFBa0QsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXHJcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBuZy1jb3JlXHJcbiAqL1xyXG5cclxuZXhwb3J0ICogZnJvbSAnLi9saWIvc2VydmljZXMnO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9uZy1jb3JlLm1vZHVsZSc7XHJcbmV4cG9ydCAqIGZyb20gJy4vbGliL2h0dHAtaW50ZXJjZXB0b3JzL2luZGV4JztcclxuZXhwb3J0ICogZnJvbSAnLi9saWIvaHR0cC1pbnRlcmNlcHRvcnMvc2VydmVyLWVycm9yLmludGVyY2VwdG9yJzsiXX0=

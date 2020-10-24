@@ -1,10 +1,6 @@
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
- */
-export { EventMessage } from './event-message';
-export { EventerService } from './eventer.service';
-export { StateService } from './state.service';
-export { NetService } from './net.service';
-export { RestoStorageService } from './resto-storage.service';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9Ad2VicmVzdG8vbmctY29yZS8iLCJzb3VyY2VzIjpbImxpYi9zZXJ2aWNlcy9pbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0FBQUEsNkJBQWMsaUJBQWlCLENBQUM7QUFDaEMsK0JBQWMsbUJBQW1CLENBQUM7QUFDbEMsNkJBQWMsaUJBQWlCLENBQUM7QUFDaEMsMkJBQWMsZUFBZSxDQUFDO0FBQzlCLG9DQUFjLHlCQUF5QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSAnLi9ldmVudC1tZXNzYWdlJztcbmV4cG9ydCAqIGZyb20gJy4vZXZlbnRlci5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vc3RhdGUuc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL25ldC5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vcmVzdG8tc3RvcmFnZS5zZXJ2aWNlJzsiXX0=
+export * from './event-message';
+export * from './eventer.service';
+export * from './state.service';
+export * from './net.service';
+export * from './resto-storage.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiQzovVXNlcnMvUHJvZmVzc2lvbmFsL2Zyb250ZW5kL3Byb2plY3RzL3dlYnJlc3RvL25nLWNvcmUvc3JjLyIsInNvdXJjZXMiOlsibGliL3NlcnZpY2VzL2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGNBQWMsaUJBQWlCLENBQUM7QUFDaEMsY0FBYyxtQkFBbUIsQ0FBQztBQUNsQyxjQUFjLGlCQUFpQixDQUFDO0FBQ2hDLGNBQWMsZUFBZSxDQUFDO0FBQzlCLGNBQWMseUJBQXlCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgKiBmcm9tICcuL2V2ZW50LW1lc3NhZ2UnO1xyXG5leHBvcnQgKiBmcm9tICcuL2V2ZW50ZXIuc2VydmljZSc7XHJcbmV4cG9ydCAqIGZyb20gJy4vc3RhdGUuc2VydmljZSc7XHJcbmV4cG9ydCAqIGZyb20gJy4vbmV0LnNlcnZpY2UnO1xyXG5leHBvcnQgKiBmcm9tICcuL3Jlc3RvLXN0b3JhZ2Uuc2VydmljZSc7Il19
