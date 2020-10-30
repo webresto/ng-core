@@ -1,7 +1,7 @@
 import { EventEmitter, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵɵinject, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { HttpClient, HttpResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { retry, tap, catchError } from 'rxjs/operators';
+import { HttpClient, HttpResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CookiesStorageService, LocalStorageService, SharedStorageService } from 'ngx-store';
 
 class EventMessage {
