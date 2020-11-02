@@ -174,24 +174,6 @@
             }], function () { return [{ type: i1$2.CookiesStorageService }, { type: i1$2.LocalStorageService }, { type: i1$2.SharedStorageService }]; }, null);
     })();
 
-    var NgCoreModule = /** @class */ (function () {
-        function NgCoreModule() {
-        }
-        return NgCoreModule;
-    }());
-    NgCoreModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgCoreModule });
-    NgCoreModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgCoreModule_Factory(t) { return new (t || NgCoreModule)(); }, imports: [[]] });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(NgCoreModule, [{
-                type: i0.NgModule,
-                args: [{
-                        imports: [],
-                        declarations: [],
-                        exports: []
-                    }]
-            }], null, null);
-    })();
-
     var ServerErrorInterceptor = /** @class */ (function () {
         function ServerErrorInterceptor(eventer, state) {
             this.eventer = eventer;
@@ -328,6 +310,26 @@
         { provide: i1$1.HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true }
     ];
 
+    var NgCoreModule = /** @class */ (function () {
+        function NgCoreModule() {
+        }
+        return NgCoreModule;
+    }());
+    NgCoreModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgCoreModule });
+    NgCoreModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgCoreModule_Factory(t) { return new (t || NgCoreModule)(); }, providers: [ngCoreHttpInterceptorProviders], imports: [[i1$2.WebStorageModule]] });
+    (function () { (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(NgCoreModule, { imports: [i1$2.WebStorageModule] }); })();
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(NgCoreModule, [{
+                type: i0.NgModule,
+                args: [{
+                        imports: [i1$2.WebStorageModule],
+                        declarations: [],
+                        providers: [ngCoreHttpInterceptorProviders],
+                        exports: []
+                    }]
+            }], null, null);
+    })();
+
     /*
      * Public API Surface of ng-core
      */
@@ -338,6 +340,7 @@
 
     exports.EventMessage = EventMessage;
     exports.EventerService = EventerService;
+    exports.MessageInterceptor = MessageInterceptor;
     exports.NetService = NetService;
     exports.NgCoreModule = NgCoreModule;
     exports.RestoStorageService = RestoStorageService;

@@ -9,3 +9,4 @@ export declare class Config {
     static ɵfac: i0.ɵɵFactoryDef<Config, never>;
     static ɵprov: i0.ɵɵInjectableDef<Config>;
 }
+//# sourceMappingURL=config.d.ts.map
