@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { WebStorageModule } from 'ngx-store';
-import { ngCoreHttpInterceptorProviders } from './http-interceptors';
 
 @NgModule({
-  imports: [WebStorageModule],
+  imports: [],
   declarations: [],
-  providers:[ngCoreHttpInterceptorProviders],
+  providers:[],
   exports: []
 })
 export class NgCoreModule { }

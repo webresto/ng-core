@@ -1,8 +1,8 @@
-import { EventEmitter, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵɵinject, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, ɵɵsetNgModuleScope, NgModule } from '@angular/core';
+import { EventEmitter, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵɵinject, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { retry, tap, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CookiesStorageService, LocalStorageService, SharedStorageService, WebStorageModule } from 'ngx-store';
+import { CookiesStorageService, LocalStorageService, SharedStorageService } from 'ngx-store';
 
 class EventMessage {
     constructor(type, title, body) {
@@ -151,6 +151,20 @@ RestoStorageService.ɵprov = ɵɵdefineInjectable({ token: RestoStorageService, 
             }]
     }], function () { return [{ type: CookiesStorageService }, { type: LocalStorageService }, { type: SharedStorageService }]; }, null); })();
 
+class NgCoreModule {
+}
+NgCoreModule.ɵmod = ɵɵdefineNgModule({ type: NgCoreModule });
+NgCoreModule.ɵinj = ɵɵdefineInjector({ factory: function NgCoreModule_Factory(t) { return new (t || NgCoreModule)(); }, providers: [], imports: [[]] });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(NgCoreModule, [{
+        type: NgModule,
+        args: [{
+                imports: [],
+                declarations: [],
+                providers: [],
+                exports: []
+            }]
+    }], null, null); })();
+
 class ServerErrorInterceptor {
     constructor(eventer, state) {
         this.eventer = eventer;
@@ -280,21 +294,6 @@ const ngCoreHttpInterceptorProviders = [
     { provide: HTTP_INTERCEPTORS, useClass: MessageInterceptor, multi: true }
 ];
 
-class NgCoreModule {
-}
-NgCoreModule.ɵmod = ɵɵdefineNgModule({ type: NgCoreModule });
-NgCoreModule.ɵinj = ɵɵdefineInjector({ factory: function NgCoreModule_Factory(t) { return new (t || NgCoreModule)(); }, providers: [ngCoreHttpInterceptorProviders], imports: [[WebStorageModule]] });
-(function () { (typeof ngJitMode === "undefined" || ngJitMode) && ɵɵsetNgModuleScope(NgCoreModule, { imports: [WebStorageModule] }); })();
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NgCoreModule, [{
-        type: NgModule,
-        args: [{
-                imports: [WebStorageModule],
-                declarations: [],
-                providers: [ngCoreHttpInterceptorProviders],
-                exports: []
-            }]
-    }], null, null); })();
-
 /*
  * Public API Surface of ng-core
  */
@@ -303,5 +302,5 @@ NgCoreModule.ɵinj = ɵɵdefineInjector({ factory: function NgCoreModule_Factory
  * Generated bundle index. Do not edit.
  */
 
-export { EventMessage, EventerService, MessageInterceptor, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService, ngCoreHttpInterceptorProviders };
+export { EventMessage, EventerService, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService, ngCoreHttpInterceptorProviders };
 //# sourceMappingURL=webresto-ng-core.js.map
