@@ -12,4 +12,3 @@ export declare class NetService {
     static ɵfac: i0.ɵɵFactoryDef<NetService, never>;
     static ɵprov: i0.ɵɵInjectableDef<NetService>;
 }
-//# sourceMappingURL=net.service.d.ts.map

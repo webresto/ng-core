@@ -12,4 +12,3 @@ export declare class EventerService {
     static ɵfac: i0.ɵɵFactoryDef<EventerService, never>;
     static ɵprov: i0.ɵɵInjectableDef<EventerService>;
 }
-//# sourceMappingURL=eventer.service.d.ts.map

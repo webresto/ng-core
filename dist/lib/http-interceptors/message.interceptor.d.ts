@@ -11,4 +11,3 @@ export declare class MessageInterceptor implements HttpInterceptor {
     static ɵfac: i0.ɵɵFactoryDef<MessageInterceptor, never>;
     static ɵprov: i0.ɵɵInjectableDef<MessageInterceptor>;
 }
-//# sourceMappingURL=message.interceptor.d.ts.map

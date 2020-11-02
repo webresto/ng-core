@@ -12,4 +12,3 @@ export declare class ServerErrorInterceptor implements HttpInterceptor {
     static ɵfac: i0.ɵɵFactoryDef<ServerErrorInterceptor, never>;
     static ɵprov: i0.ɵɵInjectableDef<ServerErrorInterceptor>;
 }
-//# sourceMappingURL=server-error.interceptor.d.ts.map

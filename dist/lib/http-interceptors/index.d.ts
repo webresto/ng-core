@@ -9,4 +9,3 @@ export declare const ngCoreHttpInterceptorProviders: ({
     useClass: typeof MessageInterceptor;
     multi: boolean;
 })[];
-//# sourceMappingURL=index.d.ts.map

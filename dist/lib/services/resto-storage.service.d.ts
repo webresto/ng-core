@@ -14,4 +14,3 @@ export declare class RestoStorageService {
     static ɵfac: i0.ɵɵFactoryDef<RestoStorageService, never>;
     static ɵprov: i0.ɵɵInjectableDef<RestoStorageService>;
 }
-//# sourceMappingURL=resto-storage.service.d.ts.map
