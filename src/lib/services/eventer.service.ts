@@ -5,8 +5,8 @@ import { EventMessage } from './event-message';
   providedIn: 'root'
 })
 export class EventerService {
-  eventMessage: EventEmitter<any> = new EventEmitter();
-  eventAction: EventEmitter<any> = new EventEmitter();
+  eventMessage: EventEmitter<EventMessage> = new EventEmitter();
+  eventAction: EventEmitter<EventMessage> = new EventEmitter();
 
   constructor() { }
 

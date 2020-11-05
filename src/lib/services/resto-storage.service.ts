@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-import {
-  CookiesStorageService, LocalStorageService,
-  SharedStorageService, NgxStorageEvent
-} from 'ngx-store';
-
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -13,9 +8,7 @@ export class RestoStorageService {
   event:BehaviorSubject<any>;
 
 
-  constructor(private cookiesStorageService:CookiesStorageService,
-              private localStorageService:LocalStorageService,
-              private sharedStorageService:SharedStorageService) {
+  constructor() {
     this.initTypeStorage();
     this.event = new BehaviorSubject({});
   }

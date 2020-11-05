@@ -2,7 +2,6 @@ import { EventEmitter, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵ�
 import { BehaviorSubject, throwError } from 'rxjs';
 import { retry, tap, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { CookiesStorageService, LocalStorageService, SharedStorageService } from 'ngx-store';
 
 class EventMessage {
     constructor(type, title, body) {
@@ -111,10 +110,7 @@ NetService.ɵprov = ɵɵdefineInjectable({ token: NetService, factory: NetServic
     }], function () { return [{ type: HttpClient }, { type: Config }]; }, null); })();
 
 class RestoStorageService {
-    constructor(cookiesStorageService, localStorageService, sharedStorageService) {
-        this.cookiesStorageService = cookiesStorageService;
-        this.localStorageService = localStorageService;
-        this.sharedStorageService = sharedStorageService;
+    constructor() {
         this.initTypeStorage();
         this.event = new BehaviorSubject({});
     }
@@ -142,14 +138,14 @@ class RestoStorageService {
         return this.event;
     }
 }
-RestoStorageService.ɵfac = function RestoStorageService_Factory(t) { return new (t || RestoStorageService)(ɵɵinject(CookiesStorageService), ɵɵinject(LocalStorageService), ɵɵinject(SharedStorageService)); };
+RestoStorageService.ɵfac = function RestoStorageService_Factory(t) { return new (t || RestoStorageService)(); };
 RestoStorageService.ɵprov = ɵɵdefineInjectable({ token: RestoStorageService, factory: RestoStorageService.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { ɵsetClassMetadata(RestoStorageService, [{
         type: Injectable,
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: CookiesStorageService }, { type: LocalStorageService }, { type: SharedStorageService }]; }, null); })();
+    }], function () { return []; }, null); })();
 
 class NgCoreModule {
 }

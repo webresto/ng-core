@@ -8,7 +8,7 @@ export declare class NetService {
     constructor(http: HttpClient, config: Config);
     get<T = any>(url: string, isApi?: boolean): Observable<T>;
     put<T = any>(url: string, data: T, isApi?: boolean): Observable<any>;
-    post<T = any>(url: string, data: T, isApi?: boolean): Observable<any>;
+    post<T = any, R = any>(url: string, data: T, isApi?: boolean): Observable<any>;
     static ɵfac: i0.ɵɵFactoryDef<NetService, never>;
     static ɵprov: i0.ɵɵInjectableDef<NetService>;
 }

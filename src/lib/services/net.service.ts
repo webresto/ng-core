@@ -30,7 +30,7 @@ export class NetService {
 
   }
 
-  public post<T=any>(url: string, data: T, isApi: boolean = true): Observable<any> {
+  public post<T=any,R=any>(url: string, data: T, isApi: boolean = true): Observable<any> {
 
     url = isApi
       ? this.config.url + this.config.prefix + this.config.versionModule + url

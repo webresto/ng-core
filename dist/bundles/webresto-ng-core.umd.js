@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http'), require('ngx-store')) :
-    typeof define === 'function' && define.amd ? define('@webresto/ng-core', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/common/http', 'ngx-store'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-core'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ng.common.http, global.i1$2));
-}(this, (function (exports, i0, i1, operators, i1$1, i1$2) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http')) :
+    typeof define === 'function' && define.amd ? define('@webresto/ng-core', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/common/http'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-core'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ng.common.http));
+}(this, (function (exports, i0, i1, operators, i1$1) { 'use strict';
 
     var EventMessage = /** @class */ (function () {
         function EventMessage(type, title, body) {
@@ -130,10 +130,7 @@
     })();
 
     var RestoStorageService = /** @class */ (function () {
-        function RestoStorageService(cookiesStorageService, localStorageService, sharedStorageService) {
-            this.cookiesStorageService = cookiesStorageService;
-            this.localStorageService = localStorageService;
-            this.sharedStorageService = sharedStorageService;
+        function RestoStorageService() {
             this.initTypeStorage();
             this.event = new i1.BehaviorSubject({});
         }
@@ -163,7 +160,7 @@
         };
         return RestoStorageService;
     }());
-    RestoStorageService.ɵfac = function RestoStorageService_Factory(t) { return new (t || RestoStorageService)(i0.ɵɵinject(i1$2.CookiesStorageService), i0.ɵɵinject(i1$2.LocalStorageService), i0.ɵɵinject(i1$2.SharedStorageService)); };
+    RestoStorageService.ɵfac = function RestoStorageService_Factory(t) { return new (t || RestoStorageService)(); };
     RestoStorageService.ɵprov = i0.ɵɵdefineInjectable({ token: RestoStorageService, factory: RestoStorageService.ɵfac, providedIn: 'root' });
     /*@__PURE__*/ (function () {
         i0.ɵsetClassMetadata(RestoStorageService, [{
@@ -171,7 +168,7 @@
                 args: [{
                         providedIn: 'root'
                     }]
-            }], function () { return [{ type: i1$2.CookiesStorageService }, { type: i1$2.LocalStorageService }, { type: i1$2.SharedStorageService }]; }, null);
+            }], function () { return []; }, null);
     })();
 
     var NgCoreModule = /** @class */ (function () {
