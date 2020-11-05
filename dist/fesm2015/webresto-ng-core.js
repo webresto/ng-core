@@ -216,6 +216,7 @@ class ServerErrorInterceptor {
                 `body was: ${error.error}`);
             if (error.status == 401) {
                 this.eventer.emitMessageEvent(new EventMessage('Unauthorized', '', ''));
+                localStorage.removeItem(LS_TOKEN_NAME);
                 return throwError(error.error && error.error.title
                     ? error.error.title
                     : 'Необходимо пройти авторизацию');
@@ -242,31 +243,6 @@ ServerErrorInterceptor.ɵprov = ɵɵdefineInjectable({ token: ServerErrorInterce
         type: Injectable
     }], function () { return [{ type: EventerService }, { type: StateService }]; }, null); })();
 
-const LS_TOKEN_NAME$1 = 'gf:tkn:v2';
-class AuthInterceptor {
-    constructor() { }
-    intercept(req, next) {
-        console.info('AuthInterceptor', req);
-        // Get the auth token from the service.
-        const authToken = localStorage.getItem(LS_TOKEN_NAME$1);
-        if (authToken) {
-            // Clone the request and replace the original headers with
-            // cloned headers, updated with the authorization.
-            const authReq = req.clone({
-                headers: req.headers.set('Authorization', `JWT ${authToken}`)
-            });
-            // send cloned request with header to the next handler.
-            return next.handle(authReq);
-        }
-        return next.handle(req);
-    }
-}
-AuthInterceptor.ɵfac = function AuthInterceptor_Factory(t) { return new (t || AuthInterceptor)(); };
-AuthInterceptor.ɵprov = ɵɵdefineInjectable({ token: AuthInterceptor, factory: AuthInterceptor.ɵfac });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(AuthInterceptor, [{
-        type: Injectable
-    }], function () { return []; }, null); })();
-
 /*
  * Public API Surface of ng-core
  */
@@ -275,5 +251,5 @@ AuthInterceptor.ɵprov = ɵɵdefineInjectable({ token: AuthInterceptor, factory:
  * Generated bundle index. Do not edit.
  */
 
-export { AuthInterceptor, EventMessage, EventerService, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService };
+export { EventMessage, EventerService, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService };
 //# sourceMappingURL=webresto-ng-core.js.map

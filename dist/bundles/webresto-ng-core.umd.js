@@ -244,6 +244,7 @@
                     ("body was: " + error.error));
                 if (error.status == 401) {
                     this.eventer.emitMessageEvent(new EventMessage('Unauthorized', '', ''));
+                    localStorage.removeItem(LS_TOKEN_NAME);
                     return i1.throwError(error.error && error.error.title
                         ? error.error.title
                         : 'Необходимо пройти авторизацию');
@@ -273,35 +274,6 @@
             }], function () { return [{ type: EventerService }, { type: StateService }]; }, null);
     })();
 
-    var LS_TOKEN_NAME$1 = 'gf:tkn:v2';
-    var AuthInterceptor = /** @class */ (function () {
-        function AuthInterceptor() {
-        }
-        AuthInterceptor.prototype.intercept = function (req, next) {
-            console.info('AuthInterceptor', req);
-            // Get the auth token from the service.
-            var authToken = localStorage.getItem(LS_TOKEN_NAME$1);
-            if (authToken) {
-                // Clone the request and replace the original headers with
-                // cloned headers, updated with the authorization.
-                var authReq = req.clone({
-                    headers: req.headers.set('Authorization', "JWT " + authToken)
-                });
-                // send cloned request with header to the next handler.
-                return next.handle(authReq);
-            }
-            return next.handle(req);
-        };
-        return AuthInterceptor;
-    }());
-    AuthInterceptor.ɵfac = function AuthInterceptor_Factory(t) { return new (t || AuthInterceptor)(); };
-    AuthInterceptor.ɵprov = i0.ɵɵdefineInjectable({ token: AuthInterceptor, factory: AuthInterceptor.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(AuthInterceptor, [{
-                type: i0.Injectable
-            }], function () { return []; }, null);
-    })();
-
     /*
      * Public API Surface of ng-core
      */
@@ -310,7 +282,6 @@
      * Generated bundle index. Do not edit.
      */
 
-    exports.AuthInterceptor = AuthInterceptor;
     exports.EventMessage = EventMessage;
     exports.EventerService = EventerService;
     exports.NetService = NetService;
