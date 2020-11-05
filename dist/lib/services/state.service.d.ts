@@ -6,3 +6,4 @@ export declare class StateService {
     static ɵfac: i0.ɵɵFactoryDef<StateService, never>;
     static ɵprov: i0.ɵɵInjectableDef<StateService>;
 }
+//# sourceMappingURL=state.service.d.ts.map

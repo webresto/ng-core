@@ -12,25 +12,25 @@ import { EventerService } from '../services/eventer.service';
 import { EventMessage } from '../services/event-message';
 
 import { Observable, throwError } from 'rxjs';
-import { finalize, tap, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { StateService } from "../services/state.service";
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
 
   constructor(
-    private eventer:EventerService,
-    private state:StateService
-  ) {}
+    private eventer: EventerService,
+    private state: StateService
+  ) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req)
       .pipe(
         tap(
           event => {
-            if(event instanceof HttpResponse) {
-              if(event.body.status && event.body.message && event.body.message[0]) {
+            if (event instanceof HttpResponse) {
+              if (event.body.status && event.body.message && event.body.message[0]) {
                 throw new Error(event.body.message[0]);
               }
             }
@@ -42,7 +42,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
   private handleError(error: HttpErrorResponse) {
 
-    if(error.error.enable
+    if (error.error.enable
       && typeof error.error.title !== 'undefined'
       && typeof error.error.description !== 'undefined'
       && typeof error.error.startDate !== 'undefined'
@@ -52,7 +52,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         startTime = new Date(error.error.startDate).getTime(),
         stopTime = new Date(error.error.stopDate).getTime();
 
-      if(currentTime > startTime && currentTime < stopTime) {
+      if (currentTime > startTime && currentTime < stopTime) {
         this.state.maintenance$.next({
           title: error.error.title,
           description: error.error.description,
@@ -70,7 +70,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.message);
 
-      switch(error.message) {
+      switch (error.message) {
         case 'timeout-or-duplicate':
           return throwError('Ошибка сервера (таймаут). Повторите попытку позже');
       }
@@ -81,7 +81,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
 
-      if(error.status == 401) {
+      if (error.status == 401) {
         this.eventer.emitMessageEvent(
           new EventMessage('Unauthorized', '', '')
         );
@@ -91,7 +91,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
             ? error.error.title
             : 'Необходимо пройти авторизацию'
         );
-      }else if((error.status == 400 || error.status == 500)
+      } else if ((error.status == 400 || error.status == 500)
         && error.error
         && error.error.message
         && error.error.message.title
