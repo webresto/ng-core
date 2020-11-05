@@ -1,6 +1,6 @@
 import { EventEmitter, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵɵinject, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { retry, map, tap, catchError } from 'rxjs/operators';
+import { retry, tap, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { CookiesStorageService, LocalStorageService, SharedStorageService } from 'ngx-store';
 
@@ -165,42 +165,7 @@ NgCoreModule.ɵinj = ɵɵdefineInjector({ factory: function NgCoreModule_Factory
             }]
     }], null, null); })();
 
-class MessageInterceptor {
-    constructor(eventer, state) {
-        this.eventer = eventer;
-        this.state = state;
-    }
-    intercept(req, next) {
-        return next.handle(req)
-            .pipe(map(event => {
-            var _a, _b, _c, _d, _e, _f, _g;
-            if (event instanceof HttpResponse && ((_a = event.body) === null || _a === void 0 ? void 0 : _a.enable)
-                && typeof event.body.title !== 'undefined'
-                && typeof event.body.description !== 'undefined'
-                && typeof event.body.startDate !== 'undefined'
-                && typeof event.body.stopDate !== 'undefined') {
-                const currentTime = new Date().getTime(), startTime = new Date(event.body.startDate).getTime(), stopTime = new Date(event.body.stopDate).getTime();
-                if (currentTime > startTime && currentTime < stopTime) {
-                    this.state.maintenance$.next({
-                        title: event.body.title,
-                        description: event.body.description
-                    });
-                }
-            }
-            else if (event instanceof HttpResponse && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body) && ((_e = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message) === null || _e === void 0 ? void 0 : _e.title) && ((_g = (_f = event === null || event === void 0 ? void 0 : event.body) === null || _f === void 0 ? void 0 : _f.message) === null || _g === void 0 ? void 0 : _g.type)) {
-                this.eventer.emitMessageEvent(new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body));
-            }
-            ;
-            return event;
-        }));
-    }
-}
-MessageInterceptor.ɵfac = function MessageInterceptor_Factory(t) { return new (t || MessageInterceptor)(ɵɵinject(EventerService), ɵɵinject(StateService)); };
-MessageInterceptor.ɵprov = ɵɵdefineInjectable({ token: MessageInterceptor, factory: MessageInterceptor.ɵfac });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(MessageInterceptor, [{
-        type: Injectable
-    }], function () { return [{ type: EventerService }, { type: StateService }]; }, null); })();
-
+const LS_TOKEN_NAME = 'gf:tkn:v2';
 class ServerErrorInterceptor {
     constructor(eventer, state) {
         this.eventer = eventer;
@@ -255,6 +220,9 @@ class ServerErrorInterceptor {
                     ? error.error.title
                     : 'Необходимо пройти авторизацию');
             }
+            else if ((error === null || error === void 0 ? void 0 : error.status) == 404 && (error === null || error === void 0 ? void 0 : error.error) == "User not found") {
+                localStorage.removeItem(LS_TOKEN_NAME);
+            }
             else if ((error.status == 400 || error.status == 500)
                 && error.error
                 && error.error.message
@@ -274,13 +242,13 @@ ServerErrorInterceptor.ɵprov = ɵɵdefineInjectable({ token: ServerErrorInterce
         type: Injectable
     }], function () { return [{ type: EventerService }, { type: StateService }]; }, null); })();
 
-const LS_TOKEN_NAME = 'gf:tkn:v2';
+const LS_TOKEN_NAME$1 = 'gf:tkn:v2';
 class AuthInterceptor {
     constructor() { }
     intercept(req, next) {
         console.info('AuthInterceptor', req);
         // Get the auth token from the service.
-        const authToken = localStorage.getItem(LS_TOKEN_NAME);
+        const authToken = localStorage.getItem(LS_TOKEN_NAME$1);
         if (authToken) {
             // Clone the request and replace the original headers with
             // cloned headers, updated with the authorization.
@@ -307,5 +275,5 @@ AuthInterceptor.ɵprov = ɵɵdefineInjectable({ token: AuthInterceptor, factory:
  * Generated bundle index. Do not edit.
  */
 
-export { AuthInterceptor, EventMessage, EventerService, MessageInterceptor, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService };
+export { AuthInterceptor, EventMessage, EventerService, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService };
 //# sourceMappingURL=webresto-ng-core.js.map

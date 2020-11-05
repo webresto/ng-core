@@ -193,46 +193,7 @@
             }], null, null);
     })();
 
-    var MessageInterceptor = /** @class */ (function () {
-        function MessageInterceptor(eventer, state) {
-            this.eventer = eventer;
-            this.state = state;
-        }
-        MessageInterceptor.prototype.intercept = function (req, next) {
-            var _this = this;
-            return next.handle(req)
-                .pipe(operators.map(function (event) {
-                var _a, _b, _c, _d, _e, _f, _g;
-                if (event instanceof i1$1.HttpResponse && ((_a = event.body) === null || _a === void 0 ? void 0 : _a.enable)
-                    && typeof event.body.title !== 'undefined'
-                    && typeof event.body.description !== 'undefined'
-                    && typeof event.body.startDate !== 'undefined'
-                    && typeof event.body.stopDate !== 'undefined') {
-                    var currentTime = new Date().getTime(), startTime = new Date(event.body.startDate).getTime(), stopTime = new Date(event.body.stopDate).getTime();
-                    if (currentTime > startTime && currentTime < stopTime) {
-                        _this.state.maintenance$.next({
-                            title: event.body.title,
-                            description: event.body.description
-                        });
-                    }
-                }
-                else if (event instanceof i1$1.HttpResponse && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body) && ((_e = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message) === null || _e === void 0 ? void 0 : _e.title) && ((_g = (_f = event === null || event === void 0 ? void 0 : event.body) === null || _f === void 0 ? void 0 : _f.message) === null || _g === void 0 ? void 0 : _g.type)) {
-                    _this.eventer.emitMessageEvent(new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body));
-                }
-                ;
-                return event;
-            }));
-        };
-        return MessageInterceptor;
-    }());
-    MessageInterceptor.ɵfac = function MessageInterceptor_Factory(t) { return new (t || MessageInterceptor)(i0.ɵɵinject(EventerService), i0.ɵɵinject(StateService)); };
-    MessageInterceptor.ɵprov = i0.ɵɵdefineInjectable({ token: MessageInterceptor, factory: MessageInterceptor.ɵfac });
-    /*@__PURE__*/ (function () {
-        i0.ɵsetClassMetadata(MessageInterceptor, [{
-                type: i0.Injectable
-            }], function () { return [{ type: EventerService }, { type: StateService }]; }, null);
-    })();
-
+    var LS_TOKEN_NAME = 'gf:tkn:v2';
     var ServerErrorInterceptor = /** @class */ (function () {
         function ServerErrorInterceptor(eventer, state) {
             this.eventer = eventer;
@@ -287,6 +248,9 @@
                         ? error.error.title
                         : 'Необходимо пройти авторизацию');
                 }
+                else if ((error === null || error === void 0 ? void 0 : error.status) == 404 && (error === null || error === void 0 ? void 0 : error.error) == "User not found") {
+                    localStorage.removeItem(LS_TOKEN_NAME);
+                }
                 else if ((error.status == 400 || error.status == 500)
                     && error.error
                     && error.error.message
@@ -309,14 +273,14 @@
             }], function () { return [{ type: EventerService }, { type: StateService }]; }, null);
     })();
 
-    var LS_TOKEN_NAME = 'gf:tkn:v2';
+    var LS_TOKEN_NAME$1 = 'gf:tkn:v2';
     var AuthInterceptor = /** @class */ (function () {
         function AuthInterceptor() {
         }
         AuthInterceptor.prototype.intercept = function (req, next) {
             console.info('AuthInterceptor', req);
             // Get the auth token from the service.
-            var authToken = localStorage.getItem(LS_TOKEN_NAME);
+            var authToken = localStorage.getItem(LS_TOKEN_NAME$1);
             if (authToken) {
                 // Clone the request and replace the original headers with
                 // cloned headers, updated with the authorization.
@@ -349,7 +313,6 @@
     exports.AuthInterceptor = AuthInterceptor;
     exports.EventMessage = EventMessage;
     exports.EventerService = EventerService;
-    exports.MessageInterceptor = MessageInterceptor;
     exports.NetService = NetService;
     exports.NgCoreModule = NgCoreModule;
     exports.RestoStorageService = RestoStorageService;

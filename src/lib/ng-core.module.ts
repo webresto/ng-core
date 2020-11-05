@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { WebStorageModule } from 'ngx-store';
 
 @NgModule({
   imports: [],

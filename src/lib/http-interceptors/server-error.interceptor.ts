@@ -15,6 +15,8 @@ import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { StateService } from "../services/state.service";
 
+const LS_TOKEN_NAME = 'gf:tkn:v2';
+
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
 
@@ -85,12 +87,14 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         this.eventer.emitMessageEvent(
           new EventMessage('Unauthorized', '', '')
         );
-
+        localStorage.removeItem(LS_TOKEN_NAME);
         return throwError(
           error.error && error.error.title
             ? error.error.title
             : 'Необходимо пройти авторизацию'
         );
+      } else if (error?.status == 404 && error?.error == "User not found") {
+        localStorage.removeItem(LS_TOKEN_NAME);
       } else if ((error.status == 400 || error.status == 500)
         && error.error
         && error.error.message
