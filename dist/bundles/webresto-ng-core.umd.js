@@ -200,8 +200,11 @@
             this.state = state;
         }
         ServerErrorInterceptor.prototype.intercept = function (req, next) {
-            return next.handle(req)
-                .pipe(operators.tap(function (event) {
+            console.info('Interceptor', req);
+            var authToken = localStorage.getItem(LS_TOKEN_NAME);
+            return next.handle(!authToken ? req : req.clone({
+                headers: req.headers.set('Authorization', "JWT " + authToken)
+            })).pipe(operators.tap(function (event) {
                 if (event instanceof i1$1.HttpResponse) {
                     if (event.body.status && event.body.message && event.body.message[0]) {
                         throw new Error(event.body.message[0]);

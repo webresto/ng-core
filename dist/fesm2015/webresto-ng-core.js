@@ -172,8 +172,11 @@ class ServerErrorInterceptor {
         this.state = state;
     }
     intercept(req, next) {
-        return next.handle(req)
-            .pipe(tap(event => {
+        console.info('Interceptor', req);
+        const authToken = localStorage.getItem(LS_TOKEN_NAME);
+        return next.handle(!authToken ? req : req.clone({
+            headers: req.headers.set('Authorization', `JWT ${authToken}`)
+        })).pipe(tap(event => {
             if (event instanceof HttpResponse) {
                 if (event.body.status && event.body.message && event.body.message[0]) {
                     throw new Error(event.body.message[0]);

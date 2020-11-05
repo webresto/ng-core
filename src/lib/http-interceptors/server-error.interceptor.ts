@@ -26,20 +26,24 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.info('Interceptor', req);
 
-    return next.handle(req)
-      .pipe(
-        tap(
-          event => {
-            if (event instanceof HttpResponse) {
-              if (event.body.status && event.body.message && event.body.message[0]) {
-                throw new Error(event.body.message[0]);
-              }
+    const authToken = localStorage.getItem(LS_TOKEN_NAME);
+
+    return next.handle(!authToken ? req : req.clone({
+      headers: req.headers.set('Authorization', `JWT ${authToken}`)
+    })).pipe(
+      tap(
+        event => {
+          if (event instanceof HttpResponse) {
+            if (event.body.status && event.body.message && event.body.message[0]) {
+              throw new Error(event.body.message[0]);
             }
           }
-        ),
-        catchError(this.handleError.bind(this))
-      );
+        }
+      ),
+      catchError(this.handleError.bind(this))
+    );
   }
 
   private handleError(error: HttpErrorResponse) {
