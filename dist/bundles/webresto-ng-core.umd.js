@@ -93,12 +93,13 @@
             this.http = http;
             this.config = config;
         }
-        NetService.prototype.get = function (url, isApi) {
+        NetService.prototype.get = function (url, isApi, options) {
             if (isApi === void 0) { isApi = true; }
+            if (options === void 0) { options = {}; }
             url = isApi
                 ? this.config.url + this.config.prefix + this.config.versionModule + url
                 : this.config.url + url;
-            return this.http.get(url)
+            return this.http.get(url, { headers: options.headers, params: options.params })
                 .pipe(operators.retry(3) // retry a failed request up to 3 times
             );
         };
@@ -109,12 +110,13 @@
                 : this.config.url + url;
             return this.http.put(url, data);
         };
-        NetService.prototype.post = function (url, data, isApi) {
+        NetService.prototype.post = function (url, data, isApi, options) {
             if (isApi === void 0) { isApi = true; }
+            if (options === void 0) { options = {}; }
             url = isApi
                 ? this.config.url + this.config.prefix + this.config.versionModule + url
                 : this.config.url + url;
-            return this.http.post(url, data);
+            return this.http.post(url, data, { headers: options.headers, params: options.params });
         };
         return NetService;
     }());

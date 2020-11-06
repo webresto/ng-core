@@ -79,11 +79,11 @@ class NetService {
         this.http = http;
         this.config = config;
     }
-    get(url, isApi = true) {
+    get(url, isApi = true, options = {}) {
         url = isApi
             ? this.config.url + this.config.prefix + this.config.versionModule + url
             : this.config.url + url;
-        return this.http.get(url)
+        return this.http.get(url, { headers: options.headers, params: options.params })
             .pipe(retry(3) // retry a failed request up to 3 times
         );
     }
@@ -93,11 +93,11 @@ class NetService {
             : this.config.url + url;
         return this.http.put(url, data);
     }
-    post(url, data, isApi = true) {
+    post(url, data, isApi = true, options = {}) {
         url = isApi
             ? this.config.url + this.config.prefix + this.config.versionModule + url
             : this.config.url + url;
-        return this.http.post(url, data);
+        return this.http.post(url, data, { headers: options.headers, params: options.params });
     }
 }
 NetService.ɵfac = function NetService_Factory(t) { return new (t || NetService)(ɵɵinject(HttpClient), ɵɵinject(Config)); };
