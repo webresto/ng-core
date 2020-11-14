@@ -199,16 +199,23 @@
             this.state = state;
         }
         ServerErrorInterceptor.prototype.intercept = function (req, next) {
+            var _this = this;
             console.info('Interceptor', req);
             var authToken = localStorage.getItem(LS_TOKEN_NAME);
             return next.handle(!authToken ? req : req.clone({
                 headers: req.headers.set('Authorization', "JWT " + authToken)
-            })).pipe(operators.tap(function (event) {
-                var _a, _b, _c;
+            })).pipe(operators.map(function (event) {
+                var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 if (event instanceof i1$1.HttpResponse && ((_a = event === null || event === void 0 ? void 0 : event.body) === null || _a === void 0 ? void 0 : _a.status) && ((_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message[0])) {
                     throw new Error((_c = event === null || event === void 0 ? void 0 : event.body) === null || _c === void 0 ? void 0 : _c.message[0]);
                 }
-            }), operators.catchError(this.handleError.bind(this)));
+                ;
+                if (event instanceof i1$1.HttpResponse && ((_e = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message) === null || _e === void 0 ? void 0 : _e.body) && ((_g = (_f = event === null || event === void 0 ? void 0 : event.body) === null || _f === void 0 ? void 0 : _f.message) === null || _g === void 0 ? void 0 : _g.title) && ((_j = (_h = event === null || event === void 0 ? void 0 : event.body) === null || _h === void 0 ? void 0 : _h.message) === null || _j === void 0 ? void 0 : _j.type)) {
+                    _this.eventer.emitMessageEvent(new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body));
+                }
+                ;
+                return event;
+            }), operators.catchError(function (err) { return _this.handleError(err); }));
         };
         ServerErrorInterceptor.prototype.handleError = function (error) {
             var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
@@ -233,22 +240,17 @@
                     console.error('An error occurred:', (_h = error === null || error === void 0 ? void 0 : error.error) === null || _h === void 0 ? void 0 : _h.message);
                     return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
                     ;
-                case (error instanceof Error && (error === null || error === void 0 ? void 0 : error.message) == 'timeout-or-duplicate'):
+                case (((_j = error.error) === null || _j === void 0 ? void 0 : _j.message) == 'timeout-or-duplicate'):
                     console.error('An error occurred:', error === null || error === void 0 ? void 0 : error.message);
                     return i1.throwError('Ошибка сервера (таймаут). Повторите попытку позже');
-                case (error instanceof Error && (error === null || error === void 0 ? void 0 : error.message) != 'timeout-or-duplicate'):
-                    console.error("Backend returned code " + (error === null || error === void 0 ? void 0 : error.status) + ", " + ("body was: " + (error === null || error === void 0 ? void 0 : error.error)));
-                    if ((error === null || error === void 0 ? void 0 : error.status) == 401) {
+                case (((_k = error.error) === null || _k === void 0 ? void 0 : _k.message) != 'timeout-or-duplicate'):
+                    console.error("Backend returned code " + (error === null || error === void 0 ? void 0 : error.status) + ", " + "body was: ", error === null || error === void 0 ? void 0 : error.error);
+                    if ((error === null || error === void 0 ? void 0 : error.status) == 401 || ((error === null || error === void 0 ? void 0 : error.status) == 404 && (error === null || error === void 0 ? void 0 : error.error) == "User not found")) {
                         this.eventer.emitMessageEvent(new EventMessage('Unauthorized', '', ''));
                         localStorage.removeItem(LS_TOKEN_NAME);
-                        return i1.throwError(((_j = error === null || error === void 0 ? void 0 : error.error) === null || _j === void 0 ? void 0 : _j.title) ? (_k = error === null || error === void 0 ? void 0 : error.error) === null || _k === void 0 ? void 0 : _k.title : 'Необходимо пройти авторизацию');
                     }
-                    else if ((error === null || error === void 0 ? void 0 : error.status) == 404 && (error === null || error === void 0 ? void 0 : error.error) == "User not found") {
-                        localStorage.removeItem(LS_TOKEN_NAME);
-                    }
-                    else if (((error === null || error === void 0 ? void 0 : error.status) == 400 || (error === null || error === void 0 ? void 0 : error.status) == 500)
-                        && ((_m = (_l = error === null || error === void 0 ? void 0 : error.error) === null || _l === void 0 ? void 0 : _l.message) === null || _m === void 0 ? void 0 : _m.title)
-                        && ((_p = (_o = error === null || error === void 0 ? void 0 : error.error) === null || _o === void 0 ? void 0 : _o.message) === null || _p === void 0 ? void 0 : _p.body)) {
+                    ;
+                    if ((error === null || error === void 0 ? void 0 : error.status) == 400 && ((_m = (_l = error === null || error === void 0 ? void 0 : error.error) === null || _l === void 0 ? void 0 : _l.message) === null || _m === void 0 ? void 0 : _m.title) && ((_p = (_o = error === null || error === void 0 ? void 0 : error.error) === null || _o === void 0 ? void 0 : _o.message) === null || _p === void 0 ? void 0 : _p.body)) {
                         this.eventer.emitMessageEvent(new EventMessage('error', (_r = (_q = error === null || error === void 0 ? void 0 : error.error) === null || _q === void 0 ? void 0 : _q.message) === null || _r === void 0 ? void 0 : _r.title, (_t = (_s = error === null || error === void 0 ? void 0 : error.error) === null || _s === void 0 ? void 0 : _s.message) === null || _t === void 0 ? void 0 : _t.body));
                     }
                     return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
