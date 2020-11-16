@@ -34,9 +34,6 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     })).pipe(
       map(
         event => {
-          if (event instanceof HttpResponse && event?.body?.status && event?.body?.message[0]) {
-            throw new Error(event?.body?.message[0]);
-          };
           if (event instanceof HttpResponse && event?.body?.message?.body && event?.body?.message?.title && event?.body?.message?.type) {
             this.eventer.emitMessageEvent(
               new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body)
