@@ -219,10 +219,7 @@
         };
         ServerErrorInterceptor.prototype.handleError = function (error) {
             var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
-            if (((_a = error === null || error === void 0 ? void 0 : error.error) === null || _a === void 0 ? void 0 : _a.enable) && typeof ((_b = error === null || error === void 0 ? void 0 : error.error) === null || _b === void 0 ? void 0 : _b.title) !== 'undefined'
-                && typeof ((_c = error === null || error === void 0 ? void 0 : error.error) === null || _c === void 0 ? void 0 : _c.description) !== 'undefined'
-                && typeof ((_d = error === null || error === void 0 ? void 0 : error.error) === null || _d === void 0 ? void 0 : _d.startDate) !== 'undefined'
-                && typeof ((_e = error === null || error === void 0 ? void 0 : error.error) === null || _e === void 0 ? void 0 : _e.stopDate) !== 'undefined') {
+            if (((_a = error === null || error === void 0 ? void 0 : error.error) === null || _a === void 0 ? void 0 : _a.enable) && ((_b = error === null || error === void 0 ? void 0 : error.error) === null || _b === void 0 ? void 0 : _b.title) && ((_c = error === null || error === void 0 ? void 0 : error.error) === null || _c === void 0 ? void 0 : _c.description) && ((_d = error === null || error === void 0 ? void 0 : error.error) === null || _d === void 0 ? void 0 : _d.startDate) && ((_e = error === null || error === void 0 ? void 0 : error.error) === null || _e === void 0 ? void 0 : _e.stopDate)) {
                 var currentTime = new Date().getTime(), startTime = new Date((_f = error === null || error === void 0 ? void 0 : error.error) === null || _f === void 0 ? void 0 : _f.startDate).getTime(), stopTime = new Date((_g = error === null || error === void 0 ? void 0 : error.error) === null || _g === void 0 ? void 0 : _g.stopDate).getTime();
                 if (currentTime > startTime && currentTime < stopTime) {
                     this.state.maintenance$.next({
@@ -234,26 +231,28 @@
                 ;
                 return i1.throwError(error.error);
             }
-            ;
-            switch (true) {
-                case (error === null || error === void 0 ? void 0 : error.error) instanceof ErrorEvent:
-                    console.error('An error occurred:', (_h = error === null || error === void 0 ? void 0 : error.error) === null || _h === void 0 ? void 0 : _h.message);
-                    return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
-                    ;
-                case (((_j = error.error) === null || _j === void 0 ? void 0 : _j.message) == 'timeout-or-duplicate'):
-                    console.error('An error occurred:', error === null || error === void 0 ? void 0 : error.message);
-                    return i1.throwError('Ошибка сервера (таймаут). Повторите попытку позже');
-                case (((_k = error.error) === null || _k === void 0 ? void 0 : _k.message) != 'timeout-or-duplicate'):
-                    console.error("Backend returned code " + (error === null || error === void 0 ? void 0 : error.status) + ", " + "body was: ", error === null || error === void 0 ? void 0 : error.error);
-                    if ((error === null || error === void 0 ? void 0 : error.status) == 401 || ((error === null || error === void 0 ? void 0 : error.status) == 404 && (error === null || error === void 0 ? void 0 : error.error) == "User not found")) {
-                        this.eventer.emitMessageEvent(new EventMessage('Unauthorized', '', ''));
-                        localStorage.removeItem(LS_TOKEN_NAME);
-                    }
-                    ;
-                    if ((error === null || error === void 0 ? void 0 : error.status) == 400 && ((_m = (_l = error === null || error === void 0 ? void 0 : error.error) === null || _l === void 0 ? void 0 : _l.message) === null || _m === void 0 ? void 0 : _m.title) && ((_p = (_o = error === null || error === void 0 ? void 0 : error.error) === null || _o === void 0 ? void 0 : _o.message) === null || _p === void 0 ? void 0 : _p.body)) {
-                        this.eventer.emitMessageEvent(new EventMessage('error', (_r = (_q = error === null || error === void 0 ? void 0 : error.error) === null || _q === void 0 ? void 0 : _q.message) === null || _r === void 0 ? void 0 : _r.title, (_t = (_s = error === null || error === void 0 ? void 0 : error.error) === null || _s === void 0 ? void 0 : _s.message) === null || _t === void 0 ? void 0 : _t.body));
-                    }
-                    return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
+            else {
+                switch (true) {
+                    case (error === null || error === void 0 ? void 0 : error.error) instanceof ErrorEvent:
+                        console.error('An error occurred:', (_h = error === null || error === void 0 ? void 0 : error.error) === null || _h === void 0 ? void 0 : _h.message);
+                        return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
+                        ;
+                    case (((_j = error.error) === null || _j === void 0 ? void 0 : _j.message) == 'timeout-or-duplicate'):
+                        console.error('An error occurred:', error === null || error === void 0 ? void 0 : error.message);
+                        return i1.throwError('Ошибка сервера (таймаут). Повторите попытку позже');
+                    case (((_k = error.error) === null || _k === void 0 ? void 0 : _k.message) != 'timeout-or-duplicate'):
+                        console.error("Backend returned code " + (error === null || error === void 0 ? void 0 : error.status) + ", " + "body was: ", error === null || error === void 0 ? void 0 : error.error);
+                        if ((error === null || error === void 0 ? void 0 : error.status) == 401 || ((error === null || error === void 0 ? void 0 : error.status) == 404 && (error === null || error === void 0 ? void 0 : error.error) == "User not found")) {
+                            this.eventer.emitMessageEvent(new EventMessage('Unauthorized', '', ''));
+                            localStorage.removeItem(LS_TOKEN_NAME);
+                        }
+                        ;
+                        if ((error === null || error === void 0 ? void 0 : error.status) == 400 && ((_m = (_l = error === null || error === void 0 ? void 0 : error.error) === null || _l === void 0 ? void 0 : _l.message) === null || _m === void 0 ? void 0 : _m.title) && ((_p = (_o = error === null || error === void 0 ? void 0 : error.error) === null || _o === void 0 ? void 0 : _o.message) === null || _p === void 0 ? void 0 : _p.body)) {
+                            this.eventer.emitMessageEvent(new EventMessage('error', (_r = (_q = error === null || error === void 0 ? void 0 : error.error) === null || _q === void 0 ? void 0 : _q.message) === null || _r === void 0 ? void 0 : _r.title, (_t = (_s = error === null || error === void 0 ? void 0 : error.error) === null || _s === void 0 ? void 0 : _s.message) === null || _t === void 0 ? void 0 : _t.body));
+                        }
+                        return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
+                }
+                ;
             }
             ;
             // return an observable with a user-facing error message
