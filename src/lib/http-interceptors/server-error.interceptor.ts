@@ -1,36 +1,30 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent,
   HttpInterceptor,
   HttpHandler,
   HttpRequest,
   HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
-
 import { EventerService } from '../services/eventer.service';
 import { EventMessage } from '../services/event-message';
-
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, filter, map } from 'rxjs/operators';
 import { StateService } from "../services/state.service";
-import { element } from 'protractor';
 
 const LS_TOKEN_NAME = 'gf:tkn:v2';
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {
 
-  constructor(
-    private eventer: EventerService,
-    private state: StateService
-  ) { }
+  constructor(private eventer: EventerService, private state: StateService) { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = localStorage.getItem(LS_TOKEN_NAME);
     return next.handle(!authToken ? req : req.clone({
       headers: req.headers.set('Authorization', `JWT ${authToken}`)
     })).pipe(
+      filter(event => !!event.type),
       map(
         event => {
           console.log('event--->>>', event);

@@ -1,6 +1,6 @@
 import { EventEmitter, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵɵinject, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { retry, map, catchError } from 'rxjs/operators';
+import { retry, filter, map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 class EventMessage {
@@ -171,7 +171,7 @@ class ServerErrorInterceptor {
         const authToken = localStorage.getItem(LS_TOKEN_NAME);
         return next.handle(!authToken ? req : req.clone({
             headers: req.headers.set('Authorization', `JWT ${authToken}`)
-        })).pipe(map(event => {
+        })).pipe(filter(event => !!event.type), map(event => {
             var _a, _b, _c, _d;
             console.log('event--->>>', event);
             if (event instanceof HttpResponse && event.ok && ((_a = event === null || event === void 0 ? void 0 : event.body) === null || _a === void 0 ? void 0 : _a.message) && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body)) {

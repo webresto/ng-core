@@ -203,7 +203,7 @@
             var authToken = localStorage.getItem(LS_TOKEN_NAME);
             return next.handle(!authToken ? req : req.clone({
                 headers: req.headers.set('Authorization', "JWT " + authToken)
-            })).pipe(operators.map(function (event) {
+            })).pipe(operators.filter(function (event) { return !!event.type; }), operators.map(function (event) {
                 var _a, _b, _c, _d;
                 console.log('event--->>>', event);
                 if (event instanceof i1$1.HttpResponse && event.ok && ((_a = event === null || event === void 0 ? void 0 : event.body) === null || _a === void 0 ? void 0 : _a.message) && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body)) {
