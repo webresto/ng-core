@@ -13,10 +13,10 @@ export class EventerService {
   emitMessageEvent(message:EventMessage) {
     this.eventMessage.emit(message);
   }
+
   emitActionEvent(action:EventMessage) {
     this.eventAction.emit(action);
   }
-
 
   getMessageEmitter() {
     return this.eventMessage;
