@@ -27,16 +27,17 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.info('Interceptor', req);
     const authToken = localStorage.getItem(LS_TOKEN_NAME);
     return next.handle(!authToken ? req : req.clone({
       headers: req.headers.set('Authorization', `JWT ${authToken}`)
     })).pipe(
       map(
         event => {
-          if (event instanceof HttpResponse && event?.body?.message?.body && event?.body?.message?.title && event?.body?.message?.type) {
+          console.log('event--->>>', event);
+          if (event instanceof HttpResponse && event.ok && event?.body?.message && event?.body?.message?.body) {
+            const message = event?.body?.message;
             this.eventer.emitMessageEvent(
-              new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body)
+              new EventMessage(message?.type || '', message?.title || '', message?.body || '')
             );
           };
           return event;
@@ -52,11 +53,11 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         startTime = new Date(error?.error?.startDate).getTime(),
         stopTime = new Date(error?.error?.stopDate).getTime();
       if (currentTime > startTime && currentTime < stopTime) {
-          this.state.maintenance$.next({
-            title: error.error.title,
-            description: error.error.description,
-            social: error.error.social
-          });
+        this.state.maintenance$.next({
+          title: error.error.title,
+          description: error.error.description,
+          social: error.error.social
+        });
       };
       return throwError(error.error);
     } else {

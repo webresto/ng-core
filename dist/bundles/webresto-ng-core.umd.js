@@ -200,14 +200,15 @@
         }
         ServerErrorInterceptor.prototype.intercept = function (req, next) {
             var _this = this;
-            console.info('Interceptor', req);
             var authToken = localStorage.getItem(LS_TOKEN_NAME);
             return next.handle(!authToken ? req : req.clone({
                 headers: req.headers.set('Authorization', "JWT " + authToken)
             })).pipe(operators.map(function (event) {
-                var _a, _b, _c, _d, _e, _f;
-                if (event instanceof i1$1.HttpResponse && ((_b = (_a = event === null || event === void 0 ? void 0 : event.body) === null || _a === void 0 ? void 0 : _a.message) === null || _b === void 0 ? void 0 : _b.body) && ((_d = (_c = event === null || event === void 0 ? void 0 : event.body) === null || _c === void 0 ? void 0 : _c.message) === null || _d === void 0 ? void 0 : _d.title) && ((_f = (_e = event === null || event === void 0 ? void 0 : event.body) === null || _e === void 0 ? void 0 : _e.message) === null || _f === void 0 ? void 0 : _f.type)) {
-                    _this.eventer.emitMessageEvent(new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body));
+                var _a, _b, _c, _d;
+                console.log('event--->>>', event);
+                if (event instanceof i1$1.HttpResponse && event.ok && ((_a = event === null || event === void 0 ? void 0 : event.body) === null || _a === void 0 ? void 0 : _a.message) && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body)) {
+                    var message = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message;
+                    _this.eventer.emitMessageEvent(new EventMessage((message === null || message === void 0 ? void 0 : message.type) || '', (message === null || message === void 0 ? void 0 : message.title) || '', (message === null || message === void 0 ? void 0 : message.body) || ''));
                 }
                 ;
                 return event;
