@@ -64,17 +64,15 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
         case (error.error?.message != 'timeout-or-duplicate'):
           console.error(`Backend returned code ${error?.status}, ` + `body was: `, error?.error);
+
+          this.eventer.emitMessageEvent(
+            new EventMessage('error', error?.error?.message?.title || '', error?.error?.message?.body || '')
+          );
+
           if (error?.status == 401 || (error?.status == 404 && error?.error == "User not found")) {
-            this.eventer.emitMessageEvent(
-              new EventMessage('Unauthorized', '', '')
-            );
+            console.log('очистка Storage');
             localStorage.removeItem(LS_TOKEN_NAME);
           };
-          if (error?.status == 400 && error?.error?.message?.title && error?.error?.message?.body) {
-            this.eventer.emitMessageEvent(
-              new EventMessage('error', error?.error?.message?.title, error?.error?.message?.body)
-            );
-          }
           return throwError(error?.error);
       };
     };
