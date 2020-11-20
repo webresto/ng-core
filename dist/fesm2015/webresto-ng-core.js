@@ -207,7 +207,10 @@ class ServerErrorInterceptor {
                     return throwError('Ошибка сервера (таймаут). Повторите попытку позже');
                 case (((_k = error.error) === null || _k === void 0 ? void 0 : _k.message) != 'timeout-or-duplicate'):
                     console.error(`Backend returned code ${error === null || error === void 0 ? void 0 : error.status}, ` + `body was: `, error === null || error === void 0 ? void 0 : error.error);
-                    this.eventer.emitMessageEvent(new EventMessage('error', ((_m = (_l = error === null || error === void 0 ? void 0 : error.error) === null || _l === void 0 ? void 0 : _l.message) === null || _m === void 0 ? void 0 : _m.title) || '', ((_p = (_o = error === null || error === void 0 ? void 0 : error.error) === null || _o === void 0 ? void 0 : _o.message) === null || _p === void 0 ? void 0 : _p.body) || ''));
+                    if (!(error.status == 404 && (error.url.includes('images') && (error.url.includes('.jpg') || error.url.includes('png'))))) {
+                        this.eventer.emitMessageEvent(new EventMessage('error', ((_m = (_l = error === null || error === void 0 ? void 0 : error.error) === null || _l === void 0 ? void 0 : _l.message) === null || _m === void 0 ? void 0 : _m.title) || '', ((_p = (_o = error === null || error === void 0 ? void 0 : error.error) === null || _o === void 0 ? void 0 : _o.message) === null || _p === void 0 ? void 0 : _p.body) || ''));
+                    }
+                    ;
                     if ((error === null || error === void 0 ? void 0 : error.status) == 401 || ((error === null || error === void 0 ? void 0 : error.status) == 404 && (error === null || error === void 0 ? void 0 : error.error) == "User not found")) {
                         console.log('очистка Storage');
                         localStorage.removeItem(LS_TOKEN_NAME);
