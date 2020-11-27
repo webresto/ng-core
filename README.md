@@ -7,7 +7,7 @@
 ~~~ javascript
 import { ngCoreHttpInterceptorProviders } from '@webresto/ng-core';
 ~~~
-~~~ javascript  
+~~~ javascript
 providers: [
   ..........
   ngCoreHttpInterceptorProviders
