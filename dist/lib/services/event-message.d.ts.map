@@ -1,1 +1,0 @@
-{"version":3,"file":"event-message.d.ts","sourceRoot":"../../projects/webresto/ng-core/src/","sources":["lib/services/event-message.ts"],"names":[],"mappings":"AAAA,qBAAa,YAAY;IACvB,IAAI,EAAC,MAAM,CAAC;IACZ,KAAK,EAAC,MAAM,CAAC;IACb,IAAI,EAAC,MAAM,CAAC;IACZ,WAAW,CAAC,EAAC,MAAM,CAAC;IACpB,IAAI,CAAC,EAAC,GAAG,CAAC;gBAEE,IAAI,EAAC,MAAM,EAAE,KAAK,EAAC,MAAM,EAAE,IAAI,EAAC,MAAM;CAKnD"}

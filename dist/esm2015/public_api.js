@@ -1,7 +1,0 @@
-/*
- * Public API Surface of ng-core
- */
-export * from './lib/services';
-export * from './lib/http-interceptors/server-error.interceptor';
-export * from './lib/ng-core.module';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLi9wcm9qZWN0cy93ZWJyZXN0by9uZy1jb3JlL3NyYy8iLCJzb3VyY2VzIjpbInB1YmxpY19hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFFSCxjQUFjLGdCQUFnQixDQUFDO0FBQy9CLGNBQWMsa0RBQWtELENBQUM7QUFDakUsY0FBYyxzQkFBc0IsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXHJcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBuZy1jb3JlXHJcbiAqL1xyXG5cclxuZXhwb3J0ICogZnJvbSAnLi9saWIvc2VydmljZXMnO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9odHRwLWludGVyY2VwdG9ycy9zZXJ2ZXItZXJyb3IuaW50ZXJjZXB0b3InO1xyXG5leHBvcnQgKiBmcm9tICcuL2xpYi9uZy1jb3JlLm1vZHVsZSc7Il19
