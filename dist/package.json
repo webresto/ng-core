@@ -1,5 +1,10 @@
 {
   "name": "@webresto/ng-core",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webresto/ng-core.git"
+  },
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^11.0.2",
@@ -15,5 +20,17 @@
   "fesm2015": "fesm2015/webresto-ng-core.js",
   "typings": "webresto-ng-core.d.ts",
   "metadata": "webresto-ng-core.metadata.json",
-  "sideEffects": false
+  "sideEffects": false,
+  "bugs": {
+    "url": "https://github.com/webresto/ng-core/issues"
+  },
+  "homepage": "https://github.com/webresto/ng-core#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "description": ""
 }
