@@ -21,8 +21,10 @@
     ],
     "paths": {
       "@webresto/ng-core": [
-        "dist/webresto/ng-core/webresto-ng-core",
-        "dist/webresto/ng-core"
+        "dist"
+      ],
+      "@webresto/ng-core/*": [
+        "dist/*"
       ]
     }
   },
