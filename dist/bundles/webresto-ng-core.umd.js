@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/common/http'), require('rxjs/operators')) :
-    typeof define === 'function' && define.amd ? define('@webresto/ng-core', ['exports', '@angular/core', 'rxjs', '@angular/common/http', 'rxjs/operators'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-core'] = {}), global.ng.core, global.rxjs, global.ng.common.http, global.rxjs.operators));
-}(this, (function (exports, i0, rxjs, i1, operators) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http')) :
+    typeof define === 'function' && define.amd ? define('@webresto/ng-core', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/common/http'], factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-core'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ng.common.http));
+}(this, (function (exports, i0, i1, operators, i1$1) { 'use strict';
 
     var EventMessage = /** @class */ (function () {
         function EventMessage(type, title, body) {
@@ -32,27 +32,33 @@
         };
         return EventerService;
     }());
-    EventerService.ɵprov = i0.ɵɵdefineInjectable({ factory: function EventerService_Factory() { return new EventerService(); }, token: EventerService, providedIn: "root" });
-    EventerService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root'
-                },] }
-    ];
-    EventerService.ctorParameters = function () { return []; };
+    EventerService.ɵfac = function EventerService_Factory(t) { return new (t || EventerService)(); };
+    EventerService.ɵprov = i0.ɵɵdefineInjectable({ token: EventerService, factory: EventerService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(EventerService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root'
+                    }]
+            }], function () { return []; }, null);
+    })();
 
     var StateService = /** @class */ (function () {
         function StateService() {
-            this.maintenance$ = new rxjs.BehaviorSubject(null);
+            this.maintenance$ = new i1.BehaviorSubject(null);
         }
         return StateService;
     }());
-    StateService.ɵprov = i0.ɵɵdefineInjectable({ factory: function StateService_Factory() { return new StateService(); }, token: StateService, providedIn: "root" });
-    StateService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root'
-                },] }
-    ];
-    StateService.ctorParameters = function () { return []; };
+    StateService.ɵfac = function StateService_Factory(t) { return new (t || StateService)(); };
+    StateService.ɵprov = i0.ɵɵdefineInjectable({ token: StateService, factory: StateService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(StateService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root'
+                    }]
+            }], function () { return []; }, null);
+    })();
 
     var Config = /** @class */ (function () {
         function Config(endpointUrl) {
@@ -66,15 +72,21 @@
         }
         return Config;
     }());
-    Config.ɵprov = i0.ɵɵdefineInjectable({ factory: function Config_Factory() { return new Config(i0.ɵɵinject("ApiDomain")); }, token: Config, providedIn: "root" });
-    Config.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root'
-                },] }
-    ];
-    Config.ctorParameters = function () { return [
-        { type: rxjs.BehaviorSubject, decorators: [{ type: i0.Inject, args: ['ApiDomain',] }] }
-    ]; };
+    Config.ɵfac = function Config_Factory(t) { return new (t || Config)(i0.ɵɵinject('ApiDomain')); };
+    Config.ɵprov = i0.ɵɵdefineInjectable({ token: Config, factory: Config.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(Config, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root'
+                    }]
+            }], function () {
+            return [{ type: i1.BehaviorSubject, decorators: [{
+                            type: i0.Inject,
+                            args: ['ApiDomain']
+                        }] }];
+        }, null);
+    })();
 
     var NetService = /** @class */ (function () {
         function NetService(http, config) {
@@ -108,21 +120,21 @@
         };
         return NetService;
     }());
-    NetService.ɵprov = i0.ɵɵdefineInjectable({ factory: function NetService_Factory() { return new NetService(i0.ɵɵinject(i1.HttpClient), i0.ɵɵinject(Config)); }, token: NetService, providedIn: "root" });
-    NetService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root'
-                },] }
-    ];
-    NetService.ctorParameters = function () { return [
-        { type: i1.HttpClient },
-        { type: Config }
-    ]; };
+    NetService.ɵfac = function NetService_Factory(t) { return new (t || NetService)(i0.ɵɵinject(i1$1.HttpClient), i0.ɵɵinject(Config)); };
+    NetService.ɵprov = i0.ɵɵdefineInjectable({ token: NetService, factory: NetService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(NetService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root'
+                    }]
+            }], function () { return [{ type: i1$1.HttpClient }, { type: Config }]; }, null);
+    })();
 
     var RestoStorageService = /** @class */ (function () {
         function RestoStorageService() {
             this.initTypeStorage();
-            this.event = new rxjs.BehaviorSubject({});
+            this.event = new i1.BehaviorSubject({});
         }
         RestoStorageService.prototype.initTypeStorage = function () {
             //  this.cookiesStorageService.set('ola', "work");
@@ -150,13 +162,16 @@
         };
         return RestoStorageService;
     }());
-    RestoStorageService.ɵprov = i0.ɵɵdefineInjectable({ factory: function RestoStorageService_Factory() { return new RestoStorageService(); }, token: RestoStorageService, providedIn: "root" });
-    RestoStorageService.decorators = [
-        { type: i0.Injectable, args: [{
-                    providedIn: 'root'
-                },] }
-    ];
-    RestoStorageService.ctorParameters = function () { return []; };
+    RestoStorageService.ɵfac = function RestoStorageService_Factory(t) { return new (t || RestoStorageService)(); };
+    RestoStorageService.ɵprov = i0.ɵɵdefineInjectable({ token: RestoStorageService, factory: RestoStorageService.ɵfac, providedIn: 'root' });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(RestoStorageService, [{
+                type: i0.Injectable,
+                args: [{
+                        providedIn: 'root'
+                    }]
+            }], function () { return []; }, null);
+    })();
 
     var LS_TOKEN_NAME = 'gf:tkn:v2';
     var ServerErrorInterceptor = /** @class */ (function () {
@@ -172,7 +187,7 @@
             })).pipe(operators.filter(function (event) { return !!event.type; }), operators.map(function (event) {
                 var _a, _b, _c, _d;
                 console.log('event--->>>', event);
-                if (event instanceof i1.HttpResponse && event.ok && ((_a = event === null || event === void 0 ? void 0 : event.body) === null || _a === void 0 ? void 0 : _a.message) && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body)) {
+                if (event instanceof i1$1.HttpResponse && event.ok && ((_a = event === null || event === void 0 ? void 0 : event.body) === null || _a === void 0 ? void 0 : _a.message) && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body)) {
                     var message = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message;
                     _this.eventer.emitMessageEvent(new EventMessage((message === null || message === void 0 ? void 0 : message.type) || '', (message === null || message === void 0 ? void 0 : message.title) || '', (message === null || message === void 0 ? void 0 : message.body) || ''));
                 }
@@ -192,17 +207,17 @@
                     });
                 }
                 ;
-                return rxjs.throwError(error.error);
+                return i1.throwError(error.error);
             }
             else {
                 switch (true) {
                     case (error === null || error === void 0 ? void 0 : error.error) instanceof ErrorEvent:
                         console.error('An error occurred:', (_h = error === null || error === void 0 ? void 0 : error.error) === null || _h === void 0 ? void 0 : _h.message);
-                        return rxjs.throwError(error === null || error === void 0 ? void 0 : error.error);
+                        return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
                         ;
                     case (((_j = error.error) === null || _j === void 0 ? void 0 : _j.message) == 'timeout-or-duplicate'):
                         console.error('An error occurred:', error === null || error === void 0 ? void 0 : error.message);
-                        return rxjs.throwError('Ошибка сервера (таймаут). Повторите попытку позже');
+                        return i1.throwError('Ошибка сервера (таймаут). Повторите попытку позже');
                     case (((_k = error.error) === null || _k === void 0 ? void 0 : _k.message) != 'timeout-or-duplicate'):
                         console.error("Backend returned code " + (error === null || error === void 0 ? void 0 : error.status) + ", " + "body was: ", error === null || error === void 0 ? void 0 : error.error);
                         if (!(error.status == 404 && (((_l = error === null || error === void 0 ? void 0 : error.url) === null || _l === void 0 ? void 0 : _l.includes('images')) && (((_m = error === null || error === void 0 ? void 0 : error.url) === null || _m === void 0 ? void 0 : _m.includes('.jpg')) || ((_o = error === null || error === void 0 ? void 0 : error.url) === null || _o === void 0 ? void 0 : _o.includes('png')))))) {
@@ -214,8 +229,8 @@
                             localStorage.removeItem(LS_TOKEN_NAME);
                         }
                         ;
-                        return rxjs.throwError(error === null || error === void 0 ? void 0 : error.error);
-                    default: return rxjs.throwError(error === null || error === void 0 ? void 0 : error.error);
+                        return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
+                    default: return i1.throwError(error === null || error === void 0 ? void 0 : error.error);
                 }
                 ;
             }
@@ -225,13 +240,13 @@
         ;
         return ServerErrorInterceptor;
     }());
-    ServerErrorInterceptor.decorators = [
-        { type: i0.Injectable }
-    ];
-    ServerErrorInterceptor.ctorParameters = function () { return [
-        { type: EventerService },
-        { type: StateService }
-    ]; };
+    ServerErrorInterceptor.ɵfac = function ServerErrorInterceptor_Factory(t) { return new (t || ServerErrorInterceptor)(i0.ɵɵinject(EventerService), i0.ɵɵinject(StateService)); };
+    ServerErrorInterceptor.ɵprov = i0.ɵɵdefineInjectable({ token: ServerErrorInterceptor, factory: ServerErrorInterceptor.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(ServerErrorInterceptor, [{
+                type: i0.Injectable
+            }], function () { return [{ type: EventerService }, { type: StateService }]; }, null);
+    })();
 
     var MessageInterceptor = /** @class */ (function () {
         function MessageInterceptor(eventer, state) {
@@ -243,7 +258,7 @@
             return next.handle(req)
                 .pipe(operators.map(function (event) {
                 var _a, _b, _c, _d, _e, _f, _g;
-                if (event instanceof i1.HttpResponse && ((_a = event.body) === null || _a === void 0 ? void 0 : _a.enable)
+                if (event instanceof i1$1.HttpResponse && ((_a = event.body) === null || _a === void 0 ? void 0 : _a.enable)
                     && typeof event.body.title !== 'undefined'
                     && typeof event.body.description !== 'undefined'
                     && typeof event.body.startDate !== 'undefined'
@@ -256,7 +271,7 @@
                         });
                     }
                 }
-                else if (event instanceof i1.HttpResponse && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body) && ((_e = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message) === null || _e === void 0 ? void 0 : _e.title) && ((_g = (_f = event === null || event === void 0 ? void 0 : event.body) === null || _f === void 0 ? void 0 : _f.message) === null || _g === void 0 ? void 0 : _g.type)) {
+                else if (event instanceof i1$1.HttpResponse && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body) && ((_e = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message) === null || _e === void 0 ? void 0 : _e.title) && ((_g = (_f = event === null || event === void 0 ? void 0 : event.body) === null || _f === void 0 ? void 0 : _f.message) === null || _g === void 0 ? void 0 : _g.type)) {
                     _this.eventer.emitMessageEvent(new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body));
                 }
                 ;
@@ -265,27 +280,32 @@
         };
         return MessageInterceptor;
     }());
-    MessageInterceptor.decorators = [
-        { type: i0.Injectable }
-    ];
-    MessageInterceptor.ctorParameters = function () { return [
-        { type: EventerService },
-        { type: StateService }
-    ]; };
+    MessageInterceptor.ɵfac = function MessageInterceptor_Factory(t) { return new (t || MessageInterceptor)(i0.ɵɵinject(EventerService), i0.ɵɵinject(StateService)); };
+    MessageInterceptor.ɵprov = i0.ɵɵdefineInjectable({ token: MessageInterceptor, factory: MessageInterceptor.ɵfac });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(MessageInterceptor, [{
+                type: i0.Injectable
+            }], function () { return [{ type: EventerService }, { type: StateService }]; }, null);
+    })();
 
     var NgCoreModule = /** @class */ (function () {
         function NgCoreModule() {
         }
         return NgCoreModule;
     }());
-    NgCoreModule.decorators = [
-        { type: i0.NgModule, args: [{
-                    imports: [],
-                    declarations: [],
-                    providers: [],
-                    exports: []
-                },] }
-    ];
+    NgCoreModule.ɵmod = i0.ɵɵdefineNgModule({ type: NgCoreModule });
+    NgCoreModule.ɵinj = i0.ɵɵdefineInjector({ factory: function NgCoreModule_Factory(t) { return new (t || NgCoreModule)(); }, providers: [], imports: [[]] });
+    /*@__PURE__*/ (function () {
+        i0.ɵsetClassMetadata(NgCoreModule, [{
+                type: i0.NgModule,
+                args: [{
+                        imports: [],
+                        declarations: [],
+                        providers: [],
+                        exports: []
+                    }]
+            }], null, null);
+    })();
 
     /*
      * Public API Surface of ng-core
