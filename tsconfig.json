@@ -1,5 +1,8 @@
 {
   "compileOnSave": false,
+  "files": [
+    "index.ts"
+  ],
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
