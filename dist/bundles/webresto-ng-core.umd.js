@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/common/http')) :
     typeof define === 'function' && define.amd ? define('@webresto/ng-core', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/common/http'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-core'] = {}), global.ng.core, global.rxjs, global.rxjs.operators, global.ng.common.http));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['@webresto/ng-core'] = {}, global.ng.core, global.rxjs, global.rxjs.operators, global.ng.common.http));
 }(this, (function (exports, i0, i1, operators, i1$1) { 'use strict';
 
     var EventMessage = /** @class */ (function () {

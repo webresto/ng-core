@@ -3,6 +3,8 @@
   "dest": "../../../dist",
   "deleteDestPath": true,
   "lib": {
-    "entryFile": "./src/public_api.ts"
+    "entryFile": "./src/public_api.ts",
+    "umdId": "@webresto/ng-core",
+    "amdId": "@webresto/ng-core"
   }
 }
