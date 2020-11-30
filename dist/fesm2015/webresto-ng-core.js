@@ -274,5 +274,5 @@ NgCoreModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { EventMessage, EventerService, MessageInterceptor, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService, EventerService as ɵa, StateService as ɵb };
+export { Config, EventMessage, EventerService, MessageInterceptor, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService };
 //# sourceMappingURL=webresto-ng-core.js.map

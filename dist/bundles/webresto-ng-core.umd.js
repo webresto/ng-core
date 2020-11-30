@@ -295,6 +295,7 @@
      * Generated bundle index. Do not edit.
      */
 
+    exports.Config = Config;
     exports.EventMessage = EventMessage;
     exports.EventerService = EventerService;
     exports.MessageInterceptor = MessageInterceptor;
@@ -303,8 +304,6 @@
     exports.RestoStorageService = RestoStorageService;
     exports.ServerErrorInterceptor = ServerErrorInterceptor;
     exports.StateService = StateService;
-    exports.ɵa = EventerService;
-    exports.ɵb = StateService;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
