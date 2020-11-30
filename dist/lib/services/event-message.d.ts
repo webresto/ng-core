@@ -6,4 +6,3 @@ export declare class EventMessage {
     data?: any;
     constructor(type: string, title: string, body: string);
 }
-//# sourceMappingURL=event-message.d.ts.map

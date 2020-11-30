@@ -1,7 +1,7 @@
-import { EventEmitter, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, ɵɵinject, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule } from '@angular/core';
+import { EventEmitter, ɵɵdefineInjectable, Injectable, ɵɵinject, Inject, NgModule } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { retry, filter, map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { retry, filter, map, catchError } from 'rxjs/operators';
 
 class EventMessage {
     constructor(type, title, body) {
@@ -29,28 +29,26 @@ class EventerService {
         return this.eventAction;
     }
 }
-EventerService.ɵfac = function EventerService_Factory(t) { return new (t || EventerService)(); };
-EventerService.ɵprov = ɵɵdefineInjectable({ token: EventerService, factory: EventerService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(EventerService, [{
-        type: Injectable,
-        args: [{
+EventerService.ɵprov = ɵɵdefineInjectable({ factory: function EventerService_Factory() { return new EventerService(); }, token: EventerService, providedIn: "root" });
+EventerService.decorators = [
+    { type: Injectable, args: [{
                 providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
+            },] }
+];
+EventerService.ctorParameters = () => [];
 
 class StateService {
     constructor() {
         this.maintenance$ = new BehaviorSubject(null);
     }
 }
-StateService.ɵfac = function StateService_Factory(t) { return new (t || StateService)(); };
-StateService.ɵprov = ɵɵdefineInjectable({ token: StateService, factory: StateService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(StateService, [{
-        type: Injectable,
-        args: [{
+StateService.ɵprov = ɵɵdefineInjectable({ factory: function StateService_Factory() { return new StateService(); }, token: StateService, providedIn: "root" });
+StateService.decorators = [
+    { type: Injectable, args: [{
                 providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
+            },] }
+];
+StateService.ctorParameters = () => [];
 
 class Config {
     constructor(endpointUrl) {
@@ -62,17 +60,15 @@ class Config {
         });
     }
 }
-Config.ɵfac = function Config_Factory(t) { return new (t || Config)(ɵɵinject('ApiDomain')); };
-Config.ɵprov = ɵɵdefineInjectable({ token: Config, factory: Config.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(Config, [{
-        type: Injectable,
-        args: [{
+Config.ɵprov = ɵɵdefineInjectable({ factory: function Config_Factory() { return new Config(ɵɵinject("ApiDomain")); }, token: Config, providedIn: "root" });
+Config.decorators = [
+    { type: Injectable, args: [{
                 providedIn: 'root'
-            }]
-    }], function () { return [{ type: BehaviorSubject, decorators: [{
-                type: Inject,
-                args: ['ApiDomain']
-            }] }]; }, null); })();
+            },] }
+];
+Config.ctorParameters = () => [
+    { type: BehaviorSubject, decorators: [{ type: Inject, args: ['ApiDomain',] }] }
+];
 
 class NetService {
     constructor(http, config) {
@@ -100,14 +96,16 @@ class NetService {
         return this.http.post(url, data, { headers: options.headers, params: options.params });
     }
 }
-NetService.ɵfac = function NetService_Factory(t) { return new (t || NetService)(ɵɵinject(HttpClient), ɵɵinject(Config)); };
-NetService.ɵprov = ɵɵdefineInjectable({ token: NetService, factory: NetService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NetService, [{
-        type: Injectable,
-        args: [{
+NetService.ɵprov = ɵɵdefineInjectable({ factory: function NetService_Factory() { return new NetService(ɵɵinject(HttpClient), ɵɵinject(Config)); }, token: NetService, providedIn: "root" });
+NetService.decorators = [
+    { type: Injectable, args: [{
                 providedIn: 'root'
-            }]
-    }], function () { return [{ type: HttpClient }, { type: Config }]; }, null); })();
+            },] }
+];
+NetService.ctorParameters = () => [
+    { type: HttpClient },
+    { type: Config }
+];
 
 class RestoStorageService {
     constructor() {
@@ -138,14 +136,13 @@ class RestoStorageService {
         return this.event;
     }
 }
-RestoStorageService.ɵfac = function RestoStorageService_Factory(t) { return new (t || RestoStorageService)(); };
-RestoStorageService.ɵprov = ɵɵdefineInjectable({ token: RestoStorageService, factory: RestoStorageService.ɵfac, providedIn: 'root' });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(RestoStorageService, [{
-        type: Injectable,
-        args: [{
+RestoStorageService.ɵprov = ɵɵdefineInjectable({ factory: function RestoStorageService_Factory() { return new RestoStorageService(); }, token: RestoStorageService, providedIn: "root" });
+RestoStorageService.decorators = [
+    { type: Injectable, args: [{
                 providedIn: 'root'
-            }]
-    }], function () { return []; }, null); })();
+            },] }
+];
+RestoStorageService.ctorParameters = () => [];
 
 const LS_TOKEN_NAME = 'gf:tkn:v2';
 class ServerErrorInterceptor {
@@ -212,25 +209,62 @@ class ServerErrorInterceptor {
     }
     ;
 }
-ServerErrorInterceptor.ɵfac = function ServerErrorInterceptor_Factory(t) { return new (t || ServerErrorInterceptor)(ɵɵinject(EventerService), ɵɵinject(StateService)); };
-ServerErrorInterceptor.ɵprov = ɵɵdefineInjectable({ token: ServerErrorInterceptor, factory: ServerErrorInterceptor.ɵfac });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(ServerErrorInterceptor, [{
-        type: Injectable
-    }], function () { return [{ type: EventerService }, { type: StateService }]; }, null); })();
+ServerErrorInterceptor.decorators = [
+    { type: Injectable }
+];
+ServerErrorInterceptor.ctorParameters = () => [
+    { type: EventerService },
+    { type: StateService }
+];
+
+class MessageInterceptor {
+    constructor(eventer, state) {
+        this.eventer = eventer;
+        this.state = state;
+    }
+    intercept(req, next) {
+        return next.handle(req)
+            .pipe(map(event => {
+            var _a, _b, _c, _d, _e, _f, _g;
+            if (event instanceof HttpResponse && ((_a = event.body) === null || _a === void 0 ? void 0 : _a.enable)
+                && typeof event.body.title !== 'undefined'
+                && typeof event.body.description !== 'undefined'
+                && typeof event.body.startDate !== 'undefined'
+                && typeof event.body.stopDate !== 'undefined') {
+                const currentTime = new Date().getTime(), startTime = new Date(event.body.startDate).getTime(), stopTime = new Date(event.body.stopDate).getTime();
+                if (currentTime > startTime && currentTime < stopTime) {
+                    this.state.maintenance$.next({
+                        title: event.body.title,
+                        description: event.body.description
+                    });
+                }
+            }
+            else if (event instanceof HttpResponse && ((_c = (_b = event === null || event === void 0 ? void 0 : event.body) === null || _b === void 0 ? void 0 : _b.message) === null || _c === void 0 ? void 0 : _c.body) && ((_e = (_d = event === null || event === void 0 ? void 0 : event.body) === null || _d === void 0 ? void 0 : _d.message) === null || _e === void 0 ? void 0 : _e.title) && ((_g = (_f = event === null || event === void 0 ? void 0 : event.body) === null || _f === void 0 ? void 0 : _f.message) === null || _g === void 0 ? void 0 : _g.type)) {
+                this.eventer.emitMessageEvent(new EventMessage(event.body.message.type, event.body.message.title, event.body.message.body));
+            }
+            ;
+            return event;
+        }));
+    }
+}
+MessageInterceptor.decorators = [
+    { type: Injectable }
+];
+MessageInterceptor.ctorParameters = () => [
+    { type: EventerService },
+    { type: StateService }
+];
 
 class NgCoreModule {
 }
-NgCoreModule.ɵmod = ɵɵdefineNgModule({ type: NgCoreModule });
-NgCoreModule.ɵinj = ɵɵdefineInjector({ factory: function NgCoreModule_Factory(t) { return new (t || NgCoreModule)(); }, providers: [], imports: [[]] });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(NgCoreModule, [{
-        type: NgModule,
-        args: [{
+NgCoreModule.decorators = [
+    { type: NgModule, args: [{
                 imports: [],
                 declarations: [],
                 providers: [],
                 exports: []
-            }]
-    }], null, null); })();
+            },] }
+];
 
 /*
  * Public API Surface of ng-core
@@ -240,5 +274,5 @@ NgCoreModule.ɵinj = ɵɵdefineInjector({ factory: function NgCoreModule_Factory
  * Generated bundle index. Do not edit.
  */
 
-export { EventMessage, EventerService, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService };
+export { EventMessage, EventerService, MessageInterceptor, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService, EventerService as ɵa, StateService as ɵb };
 //# sourceMappingURL=webresto-ng-core.js.map
