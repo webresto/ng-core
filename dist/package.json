@@ -2,11 +2,11 @@
   "name": "@webresto/ng-core",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^11.0.1",
-    "@angular/core": "^11.0.1"
+    "@angular/common": "^11.0.2",
+    "@angular/core": "^11.0.2"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.3"
   },
   "main": "bundles/webresto-ng-core.umd.js",
   "module": "fesm2015/webresto-ng-core.js",
