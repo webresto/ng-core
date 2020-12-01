@@ -1,10 +1,10 @@
 {
   "name": "ng-core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build @webresto/ng-core",
+    "build": "ng build @webresto/ng-core --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
