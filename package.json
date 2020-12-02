@@ -1,10 +1,12 @@
 {
   "name": "ng-core",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build @webresto/ng-core --prod",
+    "pub" : "cd dist && npm publish --access=public",
+    "build:pub" : "npm run build && npm run pub",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
