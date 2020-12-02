@@ -18,15 +18,7 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "@webresto/ng-core": [
-        "dist"
-      ],
-      "@webresto/ng-core/*": [
-        "dist/*"
-      ]
-    }
+    ]
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

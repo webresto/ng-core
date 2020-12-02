@@ -259,10 +259,10 @@ class NgCoreModule {
 }
 NgCoreModule.decorators = [
     { type: NgModule, args: [{
-                imports: [],
+                imports: [EventMessage],
                 declarations: [],
                 providers: [],
-                exports: []
+                exports: [EventMessage]
             },] }
 ];
 

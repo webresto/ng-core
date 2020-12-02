@@ -280,10 +280,10 @@
     }());
     NgCoreModule.decorators = [
         { type: i0.NgModule, args: [{
-                    imports: [],
+                    imports: [EventMessage],
                     declarations: [],
                     providers: [],
-                    exports: []
+                    exports: [EventMessage]
                 },] }
     ];
 
