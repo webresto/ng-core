@@ -1,5 +1,12 @@
 import { EventEmitter } from '@angular/core';
-import { EventMessage } from './event-message';
+export declare class EventMessage {
+    type: string;
+    title: string;
+    body: string;
+    constructor(type: string, title: string, body: string);
+    description?: string;
+    data?: any;
+}
 export declare class EventerService {
     eventMessage: EventEmitter<EventMessage>;
     eventAction: EventEmitter<EventMessage>;

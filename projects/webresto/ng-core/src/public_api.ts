@@ -2,7 +2,6 @@
  * Public API Surface of ng-core
  */
 
-export * from './lib/services/event-message';
 export * from './lib/services/eventer.service';
 export * from './lib/services/state.service';
 export * from './lib/services/net.service';

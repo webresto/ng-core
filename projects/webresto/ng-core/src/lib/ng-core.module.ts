@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { EventMessage } from './services/event-message';
 
 @NgModule({
-  imports: [EventMessage],
+  imports: [],
   declarations: [],
   providers:[],
-  exports: [EventMessage]
+  exports: []
 })
 export class NgCoreModule { }

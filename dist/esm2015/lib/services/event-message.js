@@ -1,8 +1,0 @@
-export class EventMessage {
-    constructor(type, title, body) {
-        this.type = type;
-        this.title = title;
-        this.body = body;
-    }
-}
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXZlbnQtbWVzc2FnZS5qcyIsInNvdXJjZVJvb3QiOiIuLi8uLi9wcm9qZWN0cy93ZWJyZXN0by9uZy1jb3JlL3NyYy8iLCJzb3VyY2VzIjpbImxpYi9zZXJ2aWNlcy9ldmVudC1tZXNzYWdlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sT0FBTyxZQUFZO0lBRXZCLFlBQW1CLElBQVksRUFBUyxLQUFhLEVBQVMsSUFBWTtRQUF2RCxTQUFJLEdBQUosSUFBSSxDQUFRO1FBQVMsVUFBSyxHQUFMLEtBQUssQ0FBUTtRQUFTLFNBQUksR0FBSixJQUFJLENBQVE7SUFBSSxDQUFDO0NBR2hGIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNsYXNzIEV2ZW50TWVzc2FnZSB7XHJcblxyXG4gIGNvbnN0cnVjdG9yKHB1YmxpYyB0eXBlOiBzdHJpbmcsIHB1YmxpYyB0aXRsZTogc3RyaW5nLCBwdWJsaWMgYm9keTogc3RyaW5nKSB7IH1cclxuICBkZXNjcmlwdGlvbj86IHN0cmluZztcclxuICBkYXRhPzogYW55O1xyXG59XHJcbiJdfQ==

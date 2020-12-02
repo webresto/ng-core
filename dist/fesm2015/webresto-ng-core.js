@@ -10,7 +10,6 @@ class EventMessage {
         this.body = body;
     }
 }
-
 class EventerService {
     constructor() {
         this.eventMessage = new EventEmitter();
@@ -259,10 +258,10 @@ class NgCoreModule {
 }
 NgCoreModule.decorators = [
     { type: NgModule, args: [{
-                imports: [EventMessage],
+                imports: [],
                 declarations: [],
                 providers: [],
-                exports: [EventMessage]
+                exports: []
             },] }
 ];
 

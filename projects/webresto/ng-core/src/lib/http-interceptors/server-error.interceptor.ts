@@ -6,8 +6,7 @@ import {
   HttpResponse,
   HttpErrorResponse
 } from '@angular/common/http';
-import { EventerService } from '../services/eventer.service';
-import { EventMessage } from '../services/event-message';
+import { EventerService,EventMessage } from '../services/eventer.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 import { StateService } from "../services/state.service";

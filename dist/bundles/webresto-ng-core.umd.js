@@ -12,7 +12,6 @@
         }
         return EventMessage;
     }());
-
     var EventerService = /** @class */ (function () {
         function EventerService() {
             this.eventMessage = new i0.EventEmitter();
@@ -280,10 +279,10 @@
     }());
     NgCoreModule.decorators = [
         { type: i0.NgModule, args: [{
-                    imports: [EventMessage],
+                    imports: [],
                     declarations: [],
                     providers: [],
-                    exports: [EventMessage]
+                    exports: []
                 },] }
     ];
 
