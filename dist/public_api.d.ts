@@ -5,4 +5,3 @@ export * from './lib/services/resto-storage.service';
 export * from './lib/http-interceptors/server-error.interceptor';
 export * from './lib/http-interceptors/message.interceptor';
 export * from './lib/config';
-export * from './lib/ng-core.module';

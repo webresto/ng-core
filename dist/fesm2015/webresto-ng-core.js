@@ -1,4 +1,4 @@
-import { EventEmitter, ɵɵdefineInjectable, Injectable, ɵɵinject, Inject, NgModule } from '@angular/core';
+import { EventEmitter, ɵɵdefineInjectable, Injectable, ɵɵinject, Inject } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { retry, filter, map, catchError } from 'rxjs/operators';
@@ -254,17 +254,6 @@ MessageInterceptor.ctorParameters = () => [
     { type: StateService }
 ];
 
-class NgCoreModule {
-}
-NgCoreModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [],
-                declarations: [],
-                providers: [],
-                exports: []
-            },] }
-];
-
 /*
  * Public API Surface of ng-core
  */
@@ -273,5 +262,5 @@ NgCoreModule.decorators = [
  * Generated bundle index. Do not edit.
  */
 
-export { Config, EventMessage, EventerService, MessageInterceptor, NetService, NgCoreModule, RestoStorageService, ServerErrorInterceptor, StateService };
+export { Config, EventMessage, EventerService, MessageInterceptor, NetService, RestoStorageService, ServerErrorInterceptor, StateService };
 //# sourceMappingURL=webresto-ng-core.js.map

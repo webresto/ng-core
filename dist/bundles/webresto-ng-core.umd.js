@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/common/http'), require('rxjs/operators')) :
     typeof define === 'function' && define.amd ? define('@webresto/ng-core', ['exports', '@angular/core', 'rxjs', '@angular/common/http', 'rxjs/operators'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global['@webresto/ng-core'] = {}, global.ng.core, global.rxjs, global.ng.common.http, global.rxjs.operators));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.webresto = global.webresto || {}, global.webresto['ng-core'] = {}), global.ng.core, global.rxjs, global.ng.common.http, global.rxjs.operators));
 }(this, (function (exports, i0, rxjs, i1, operators) { 'use strict';
 
     var EventMessage = /** @class */ (function () {
@@ -272,20 +272,6 @@
         { type: StateService }
     ]; };
 
-    var NgCoreModule = /** @class */ (function () {
-        function NgCoreModule() {
-        }
-        return NgCoreModule;
-    }());
-    NgCoreModule.decorators = [
-        { type: i0.NgModule, args: [{
-                    imports: [],
-                    declarations: [],
-                    providers: [],
-                    exports: []
-                },] }
-    ];
-
     /*
      * Public API Surface of ng-core
      */
@@ -299,7 +285,6 @@
     exports.EventerService = EventerService;
     exports.MessageInterceptor = MessageInterceptor;
     exports.NetService = NetService;
-    exports.NgCoreModule = NgCoreModule;
     exports.RestoStorageService = RestoStorageService;
     exports.ServerErrorInterceptor = ServerErrorInterceptor;
     exports.StateService = StateService;
