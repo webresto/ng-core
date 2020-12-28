@@ -40,24 +40,33 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  handleError(error: HttpErrorResponse):Observable<never> {
-    if (error?.error?.enable && error?.error?.title && error?.error?.description && error?.error?.startDate && error?.error?.stopDate) {
-      const currentTime = new Date().getTime(),
-        startTime = new Date(error?.error?.startDate).getTime(),
-        stopTime = new Date(error?.error?.stopDate).getTime();
-      if (currentTime > startTime && currentTime < stopTime) {
+  handleError(error: HttpErrorResponse): Observable<never> {
+    if (error.status >= 500) {
+      if (error?.error?.enable && error?.error?.title && error?.error?.description && error?.error?.startDate && error?.error?.stopDate) {
+        const currentTime = new Date().getTime(),
+          startTime = new Date(error?.error?.startDate).getTime(),
+          stopTime = new Date(error?.error?.stopDate).getTime();
+        if (currentTime > startTime && currentTime < stopTime) {
+          this.state.maintenance$.next({
+            title: error.error.title,
+            description: error.error.description,
+            social: error.error.social
+          });
+        };
+        return throwError(error.error);
+      } else {
         this.state.maintenance$.next({
-          title: error.error.title,
-          description: error.error.description,
-          social: error.error.social
+          title: 'Сайт временно не работает',
+          description: 'Телефон оператора - +7(3467)38-80-80',
+          social: ''
         });
-      };
-      return throwError(error.error);
+        return throwError(error.error);
+      }
     } else {
       switch (true) {
         case error?.error instanceof ErrorEvent:
-        console.error('An error occurred:', error?.error?.message);
-        return throwError(error?.error);;
+          console.error('An error occurred:', error?.error?.message);
+          return throwError(error?.error);;
 
         case (error.error?.message == 'timeout-or-duplicate'):
           console.error('An error occurred:', error?.message);

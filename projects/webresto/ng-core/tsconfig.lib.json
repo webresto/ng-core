@@ -5,7 +5,7 @@
     "outDir": "../../../out-tsc/lib",
     "target": "es2015",
     "declaration": true,
-    "declarationMap": false,
+    "declarationMap": true,
     "inlineSources": true,
     "types": [],
     "lib": [
@@ -16,8 +16,7 @@
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableResourceInlining": true,
-    "enableIvy": false
+    "enableResourceInlining": true
   },
   "exclude": [
     "src/test.ts",
