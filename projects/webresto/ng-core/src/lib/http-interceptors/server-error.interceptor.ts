@@ -4,9 +4,10 @@ import {
   HttpHandler,
   HttpRequest,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpEvent
 } from '@angular/common/http';
-import { EventerService,EventMessage } from '../services/eventer.service';
+import { EventerService, EventMessage } from '../services/eventer.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 import { StateService } from "../services/state.service";
@@ -20,9 +21,11 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = localStorage.getItem(LS_TOKEN_NAME);
-    return next.handle(!authToken ? req : req.clone({
-      headers: req.headers.set('Authorization', `JWT ${authToken}`)
-    })).pipe(
+    return this.firstCustomInterceptor(
+      !authToken ? req : req.clone({
+        headers: req.headers.set('Authorization', `JWT ${authToken}`)
+      }), next
+    ).pipe(
       filter(event => !!event.type),
       map(
         event => {
@@ -38,6 +41,15 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       ),
       catchError(err => this.handleError(err))
     );
+  }
+
+  /**
+   *
+   * Метод необходим для того, чтобы импортирующие проекты могли определить класс-наследник от ServerErrorInterceptor
+   * и в этом методе определить дополнительную логику обработки внутри перехватчика.
+   */
+  firstCustomInterceptor(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
+    return next.handle(req);
   }
 
   handleError(error: HttpErrorResponse): Observable<never> {
