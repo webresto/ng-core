@@ -5,7 +5,6 @@ import {
   HttpRequest,
   HttpResponse,
   HttpErrorResponse,
-  HttpEvent
 } from '@angular/common/http';
 import { EventerService, EventMessage } from '../services/eventer.service';
 import { Observable, throwError } from 'rxjs';
@@ -21,15 +20,18 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const authToken = localStorage.getItem(LS_TOKEN_NAME);
-    return this.firstCustomInterceptor(
+    return next.handle(
       !authToken ? req : req.clone({
         headers: req.headers.set('Authorization', `JWT ${authToken}`)
-      }), next
+      })
     ).pipe(
       filter(event => !!event.type),
       map(
         event => {
           console.log('event--->>>', event);
+          if (this.state.maintenance$.value) {
+            this.state.maintenance$.next(null);
+          };
           if (event instanceof HttpResponse && event.ok && event?.body?.message && event?.body?.message?.body) {
             const message = event?.body?.message;
             this.eventer.emitMessageEvent(
@@ -43,22 +45,13 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  /**
-   *
-   * Метод необходим для того, чтобы импортирующие проекты могли определить класс-наследник от ServerErrorInterceptor
-   * и в этом методе определить дополнительную логику обработки внутри перехватчика.
-   */
-  firstCustomInterceptor(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
-    return next.handle(req);
-  }
-
   handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status >= 500) {
       if (error?.error?.enable && error?.error?.title && error?.error?.description && error?.error?.startDate && error?.error?.stopDate) {
         const currentTime = new Date().getTime(),
           startTime = new Date(error?.error?.startDate).getTime(),
           stopTime = new Date(error?.error?.stopDate).getTime();
-        if (currentTime > startTime && currentTime < stopTime) {
+        if (currentTime > startTime && currentTime < stopTime && !this.state.maintenance$.value) {
           this.state.maintenance$.next({
             title: error.error.title,
             description: error.error.description,
@@ -67,11 +60,13 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         };
         return throwError(error.error);
       } else {
-        this.state.maintenance$.next({
-          title: 'Сайт временно не работает',
-          description: 'Телефон оператора - +7(3467)38-80-80',
-          social: ''
-        });
+        if (!this.state.maintenance$.value) {
+          this.state.maintenance$.next({
+            title: 'Сайт временно не работает',
+            description: 'Телефон оператора - +7(3467)38-80-80',
+            social: ''
+          });
+        };
         return throwError(error.error);
       }
     } else {
