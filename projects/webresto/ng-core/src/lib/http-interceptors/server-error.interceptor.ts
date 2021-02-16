@@ -62,7 +62,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       } else {
         if (!this.state.maintenance$.value) {
           this.state.maintenance$.next({
-            title: 'Сайт временно не работает',
+            title: 'Сервис временно не работает',
             description: 'Телефон оператора - +7(3467)38-80-80',
             social: ''
           });
