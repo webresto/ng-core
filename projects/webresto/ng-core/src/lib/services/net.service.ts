@@ -49,7 +49,6 @@ export class NetService {
       : this.config.url + url;
 
     return this.http.put(url, data);
-
   }
 
   public post<T = any, R = any>(url: string, data: T, isApi: boolean = true, options: {
