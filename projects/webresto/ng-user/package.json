@@ -1,11 +1,29 @@
 {
   "name": "@webresto/ng-user",
-  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webresto/ng-user.git"
+  },
+  "version": "0.0.14",
   "peerDependencies": {
-    "@angular/common": "^11.2.1",
-    "@angular/core": "^11.2.1"
+    "@angular/common": "^11.2.5",
+    "@angular/core": "^11.2.5",
+    "rxjs":"6.6.6",
+    "@webresto/ng-core": "^0.0.10"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
-  }
+    "tslib": "^2.1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/webresto/ng-user/issues"
+  },
+  "homepage": "https://github.com/webresto/ng-user#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "description": ""
 }

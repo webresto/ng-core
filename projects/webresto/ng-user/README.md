@@ -1,24 +1,167 @@
-# NgUser
+# @webresto/ng-user
+## Установка модуля
+Модуль устанавливается с Git репозитория, в папку node_modules
+## Подключение модуля в проект
+Добавьте следующие в ваш app.module.ts
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.1.
+~~~ javascript
+import { NgUserModule } from '@webresto/ng-user';
+import { ngCoreHttpInterceptorProviders } from '@webresto/ng-core';
+import { ngUserHttpInterceptorProviders } from '@webresto/ng-user';
+~~~
+~~~ javascript
+imports: [
+  ..........
+  NgUserModule
+],
+providers: [
+  ..........
+  ngCoreHttpInterceptorProviders,
+  ngUserHttpInterceptorProviders
+],
+~~~
 
-## Code scaffolding
 
-Run `ng generate component component-name --project ng-user` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-user`.
-> Note: Don't forget to add `--project ng-user` or else it will be added to the default project in your `angular.json` file. 
+## Использование сервиса
+~~~ javascript
+import { NgRestoUserService } from '@webresto/ng-user';
+..........
+constructor(
+    private userService: NgRestoUserService
+) {
+    // Проверить авторизирован ли, и подписатся на изменения
+    this.userService
+      .userIsLoggedIn()
+      .subscribe(isLoggedIn => {
+        ...........
+      });
 
-## Build
+    // Получить данные профиля и подписатся на изменения
+    this.userService
+      .userProfile()
+      .subscribe(user => {
+        this.user = user;
+        ...........
+      });
 
-Run `ng build ng-user` to build the project. The build artifacts will be stored in the `dist/` directory.
+    // Получить историю заказов
+    this.userService
+      .userHistory()
+      .subscribe(historyItems => {
+        this.historyItems = historyItems;
+        ...........
+      });
 
-## Publishing
+    // Прописать токен авторизации принудительно
+    // Автоматически подменятся данные профиля и избранные
+    this.usrtService.setAuthToken(token)
+}
+~~~
 
-After building your library with `ng build ng-user`, go to the dist folder `cd dist/ng-user` and run `npm publish`.
+## Директивы
 
-## Running unit tests
 
-Run `ng test ng-user` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### [rstSignIn] - Вход по логин/паролю
+Пример использования в компоненте:
 
-## Further help
+~~~ html
+ <input #phone type="text">
+ <input #password type="password">
+ <input #rememberMe type="checkbox">
+ ........
+ <button rstSignIn
+        [phone]="phone.value"
+        [password]="password.value"
+        [captcha]="captcha"
+        [rememberMe]="rememberMe.value"
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+        (success)="...."
+        (error)="....">Войти</button>
+~~~
+
+### [rstSignUp] - Регистрация
+Пример использования в компоненте:
+
+~~~ html
+ <input #name type="text">
+ <input #phone type="text">
+ <input #email type="text">
+ <input #password type="password">
+ ........
+ <button rstSignUp
+        [name]="name.value"
+        [phone]="phone.value"
+        [email]="email.value"
+        [password]="password.value"
+        [captcha]="captcha"
+
+        (success)="...."
+        (error)="....">Регистрация</button>
+~~~
+
+### [rstAddAddress] - Добавить адрес
+Пример использования в компоненте:
+
+~~~ html
+ <input #name type="text">
+ <select #streetId ...</select>
+ <input #home type="text">
+ <input #housing type="text">
+ ........
+ <button appAddAddress
+        [name]="name.value"
+        [street]="streetId.value"
+        [home]="home.value"
+        [housing]="housing.value"
+        [index]="index.value"
+        [entrance]="entrance.value"
+        [floor]="floor.value"
+        [apartment]="apartment.value"
+        [doorphone]="doorphone.value"
+
+        (success)="...."
+        (error)="....">Регистрация</button>
+~~~
+
+### [rstDeleteAddress] - Удалить адрес
+Пример использования в компоненте:
+
+~~~ html
+ <button rstDeleteAddress [address]="address">Удалить</button>
+~~~
+
+
+### [rstBalance]  - добавляет значение текущего баланса
+Пример использования в компоненте:
+
+~~~ html
+<span rstBalance></span>
+~~~
+Директива добавит внутрь контейнера строку с текущим балансом
+
+### [rstSignOut] - выход со своего аккаунта
+Пример использования в компоненте:
+
+~~~ html
+<button rstSignOut class="btn-yellow-hollow align-center">Выход</button>
+~~~
+
+### [rstToggleDishToFavorites] - Добавить/удалить в списке Избранных
+Пример использования в компоненте:
+
+~~~ html
+ ........
+ <button rstToggleDishToFavorites
+        [dish]="dish"
+
+        (change)="...."
+        (addedToFavorites)="...."
+        (removedFromFavorites)="...."
+        (error)="....">Регистрация</button>
+~~~
+
+Также в случае, если товар в избранных - добавляется автоматом класс selected. После удаления из списка избранных удаляется и класс selected.
+
+Событие change происходит при добавлении и удалении товара в избранные со значением true/false
+Событие addedToFavorites - при добавлении товара в избранное
+Событие removedFromFavorites - при удалении из избранных

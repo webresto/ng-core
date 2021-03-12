@@ -4,8 +4,10 @@
   "compilerOptions": {
     "outDir": "../../../out-tsc/lib",
     "target": "es2015",
+    "module": "es2020",
     "declaration": true,
     "declarationMap": true,
+    "sourceMap": false,
     "inlineSources": true,
     "types": [],
     "lib": [
@@ -19,6 +21,7 @@
     "enableResourceInlining": true
   },
   "exclude": [
+    "node_modules",
     "src/test.ts",
     "**/*.spec.ts"
   ]
