@@ -20,9 +20,17 @@
       "dom"
     ],
     "paths": {
+      "@webresto/ng-cart": [
+        "dist/webresto/ng-cart/webresto-ng-cart",
+        "dist/webresto/ng-cart"
+      ],
       "@webresto/ng-core": [
         "dist/webresto/ng-core/webresto-ng-core",
         "dist/webresto/ng-core"
+      ],
+      "@webresto/ng-user": [
+        "dist/webresto/ng-user/webresto-ng-user",
+        "dist/webresto/ng-user"
       ]
     }
   },

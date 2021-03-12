@@ -5,9 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class StateService {
-  maintenance$: BehaviorSubject<any>;
+  maintenance$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor() {
-    this.maintenance$ = new BehaviorSubject<any>(null);
-  }
+  constructor() { }
 }

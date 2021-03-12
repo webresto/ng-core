@@ -42,6 +42,86 @@
           }
         }
       }
+    },
+    "@webresto/ng-cart": {
+      "projectType": "library",
+      "root": "projects/webresto/ng-cart",
+      "sourceRoot": "projects/webresto/ng-cart/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/webresto/ng-cart/tsconfig.lib.json",
+            "project": "projects/webresto/ng-cart/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/webresto/ng-cart/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/webresto/ng-cart/src/test.ts",
+            "tsConfig": "projects/webresto/ng-cart/tsconfig.spec.json",
+            "karmaConfig": "projects/webresto/ng-cart/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/webresto/ng-cart/tsconfig.lib.json",
+              "projects/webresto/ng-cart/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@webresto/ng-user": {
+      "projectType": "library",
+      "root": "projects/webresto/ng-user",
+      "sourceRoot": "projects/webresto/ng-user/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/webresto/ng-user/tsconfig.lib.json",
+            "project": "projects/webresto/ng-user/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/webresto/ng-user/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/webresto/ng-user/src/test.ts",
+            "tsConfig": "projects/webresto/ng-user/tsconfig.spec.json",
+            "karmaConfig": "projects/webresto/ng-user/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/webresto/ng-user/tsconfig.lib.json",
+              "projects/webresto/ng-user/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "@webresto/ng-core"
