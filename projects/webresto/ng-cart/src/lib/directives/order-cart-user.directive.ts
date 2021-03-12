@@ -1,5 +1,5 @@
 import { Directive, Input, HostListener } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
@@ -26,14 +26,14 @@ export class OrderCartUserDirective {
   ngAfterViewInit(): void {
 
     setTimeout(() => {
-      const sub = this.cartService.userCart().subscribe(
+      const sub: Subscription = this.cartService.userCart().subscribe(
         cart => {
           if (this.cart && this.orderCart.valid && this.cart.cartTotal != cart.cartTotal && cart.cartTotal > 0) {
             this.checkStreet(this.orderCart.value)
           }
           this.cart = cart;
         }, () => { }, () => sub.unsubscribe()
-        );
+      );
     }, 100);
 
     setTimeout(() => {
@@ -42,7 +42,7 @@ export class OrderCartUserDirective {
 
     this.checkerFields.subscribe(state => {
       if (state) {
-        this.orderCart.controls['street'].valueChanges.subscribe(val => {
+        this.orderCart.controls['street'].valueChanges.subscribe((val: any) => {
           if (typeof val === 'object') {
             setTimeout(() => {
               if (this.orderCart.controls['house'].valid) {
@@ -53,7 +53,7 @@ export class OrderCartUserDirective {
             }, 100);
           }
         });
-        this.orderCart.controls['house'].valueChanges.subscribe(val => {
+        this.orderCart.controls['house'].valueChanges.subscribe(() => {
           setTimeout(() => {
             if (this.orderCart.controls['street'].valid) {
               this.orderCart.value.name = this.orderCart.value.name || "Неуказано";
@@ -72,7 +72,7 @@ export class OrderCartUserDirective {
 
   checkForFields(formDirectives: Array<any>, requiredFields: Array<string>): boolean {
 
-    let fieldsAreAvailable: object = {};
+    let fieldsAreAvailable: { [key: string]: boolean } = {};
     let noFields: Array<string> = [];
 
 
@@ -94,7 +94,7 @@ export class OrderCartUserDirective {
     }
   }
 
-  order(dataToSend) {
+  order(dataToSend: { comment: string; cash: any; bankcard: any; street: { id: any; }; house: any; housing: any; doorphone: any; entrance: any; floor: any; apartment: any; phone: string; email: any; name: any; personsCount: any; }) {
     if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
       let payment;
       let comment = dataToSend.comment || "Не указан"
@@ -140,7 +140,7 @@ export class OrderCartUserDirective {
 
   }
 
-  checkStreet(dataToSend) {
+  checkStreet(dataToSend: { comment: any; street: { id: any; }; house: any; housing: any; doorphone: any; entrance: any; floor: any; apartment: any; phone: string; email: any; name: any; personsCount: any; }) {
     console.log(">>>>", dataToSend);
     if (this.checkForFields(this.orderCart._directives, this.requiredFields)) {
       let data = {
@@ -175,14 +175,13 @@ export class OrderCartUserDirective {
   }
 
   stringToNumber(str: number | any): number {
-    console.log(typeof str);
     if (typeof str === 'string') {
       return +str;
     } else if (typeof str === "number") {
       return str;
     } else {
-      console.error("Параметр home должен быть или string или number");
-    }
+      throw new Error("Параметр home должен быть или string или number");
+    };
   }
 
 }

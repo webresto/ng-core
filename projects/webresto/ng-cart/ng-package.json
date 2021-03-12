@@ -7,7 +7,7 @@
       "@webresto/ng-core": "@webresto/ng-core"
     }
   },
-  "whitelistedNonPeerDependencies": [
+  "allowedNonPeerDependencies": [
     "tslib"
   ]
 

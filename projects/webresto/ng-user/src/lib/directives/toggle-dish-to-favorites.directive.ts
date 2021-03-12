@@ -2,6 +2,7 @@ import {
   Directive, HostListener, Input,
   Output, EventEmitter, ElementRef, Renderer2, OnDestroy, OnChanges
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { NgRestoUserService } from '../services/ng-resto-user.service';
 
 @Directive({
@@ -61,7 +62,7 @@ export class ToggleDishToFavoritesDirective implements OnDestroy, OnChanges {
   }
 
   removeDishFromFavorites() {
-    const req = this.ngRestoUserService.removeDishFromFavorites(this.dish).subscribe(
+    const req:Subscription = this.ngRestoUserService.removeDishFromFavorites(this.dish).subscribe(
       () => {
         this.change.emit(false);
         this.renderer.removeClass(this.element.nativeElement, 'selected');

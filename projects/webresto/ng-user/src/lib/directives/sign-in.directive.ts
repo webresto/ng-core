@@ -33,7 +33,7 @@ export class SignInDirective {
       )
   }
 
-  preparePhone(phone) {
+  preparePhone(phone:string) {
     phone = '+' + phone.replace(/[^0-9]/gim,'');
     return phone.replace('+8', '');
   }

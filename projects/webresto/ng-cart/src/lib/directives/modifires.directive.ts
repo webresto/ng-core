@@ -33,7 +33,7 @@ export class ModifiresDirective {
     this.renderer.appendChild(this.el.nativeElement, h);}
 
 
-    modifires.forEach(elementGroup => {
+    modifires.forEach((elementGroup: { modifierId: string | number; name: any; childModifiers: any[]; }) => {
 
       this.stateModifires[elementGroup.modifierId]={};
       this.amountModifires[elementGroup.modifierId]={};
@@ -42,7 +42,7 @@ export class ModifiresDirective {
       let groupDiv = this.groupDiv(elementGroup.name);
       this.renderer.appendChild(this.el.nativeElement, groupDiv);
 
-      let modArr;
+      let modArr:any[];
       if(elementGroup.childModifiers.length>5){
        modArr = elementGroup.childModifiers.slice(0, 5)
       }else{
@@ -52,7 +52,7 @@ export class ModifiresDirective {
 
 
 
-      modArr.forEach(element => {
+      modArr.forEach((element: { modifierId: string | number; }) => {
 
       let modifireDiv = this.modifireDiv(element,elementGroup.modifierId);
         this.renderer.appendChild(groupDiv,modifireDiv);
@@ -67,21 +67,21 @@ export class ModifiresDirective {
 
   }
 
-  groupDiv(nameGorup){
+  groupDiv(nameGorup: string){
     let div = this.renderer.createElement('div');
     this.renderer.addClass(div, 'group-modifires');
     this.renderer.appendChild(div, this.renderer.createText('Название категории модификаторов: '+nameGorup));
     return div;
   }
 
-  modifireDiv(element, groupId){
+  modifireDiv(element: any, groupId: any){
     let div = this.renderer.createElement('div');
     this.renderer.addClass(div, 'additional-item');
     this.renderOneModifire(element, div,groupId);
    return div;
   }
 
-  renderOneModifire(element, modifireDiv, groupId){
+  renderOneModifire(element: { modifierId: string; dish: { name: any; weight: string; price: string; }; minAmount: number; }, modifireDiv: any, groupId: string | number){
 
     // Рендер Названия модификатора
     let itemNameDiv = this.renderer.createElement('div');

@@ -6,13 +6,9 @@ import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 })
 export class DeleteFromCartDirective {
 
-  cart:Cart;
+  @Input() cart:Cart;
 
-  constructor(private cartService: NgRestoCartService) {
-    const sub = this.cartService.userCart().subscribe(
-      res => this.cart = res, () => { }, () => sub.unsubscribe()
-    );
-  }
+  constructor(private cartService: NgRestoCartService) {  }
 
 
   @Input() dish: any;

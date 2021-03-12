@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError, from } from 'rxjs';
+import { Observable, BehaviorSubject, throwError, from, Subscription } from 'rxjs';
 import { catchError, filter, map, switchMap, tap } from 'rxjs/operators';
 import { NetService, EventerService, EventMessage } from '@webresto/ng-core';
 
@@ -49,7 +49,7 @@ export class NgRestoCartService {
     );
   }
 
-  addDishToCart(data) {
+  addDishToCart(data: any) {
     if (this.modifiresMessage.value.length) {
       this.modifiresMessage.value.forEach(message => {
         this.eventer.emitMessageEvent(message);
@@ -74,7 +74,7 @@ export class NgRestoCartService {
       });
   }
 
-  addDishToCart$(data) {
+  addDishToCart$(data: { dishId: any; amount: any; cartId: any; modifiers: any; comment: string; }) {
     if (this.modifiresMessage.value.length) {
       this.modifiresMessage.value.forEach(message => {
         this.eventer.emitMessageEvent(message);
@@ -92,8 +92,8 @@ export class NgRestoCartService {
       );
   }
 
-  setDishCountToCart(dishId, amount) {
-    const sub = this.net.post<any, { cart: Cart, message: any }>('/cart/set', {
+  setDishCountToCart(dishId:string, amount:number) {
+    const sub:Subscription = this.net.post<any, { cart: Cart, message: any }>('/cart/set', {
       dishId: dishId,
       cartId: this.cartID,
       amount: amount
@@ -113,7 +113,7 @@ export class NgRestoCartService {
     );
   }
 
-  setDishComment(dishId, comment) {
+  setDishComment(dishId:string, comment:string) {
     return this.net.post('/cart/setcomment', {
       dishId: dishId,
       cartId: this.cartID,
@@ -129,7 +129,7 @@ export class NgRestoCartService {
 
   }
 
-  removeDishFromCart$(dishId, amount) {
+  removeDishFromCart$(dishId:string, amount:number) {
     return this.net.put('/cart/remove', {
       dishId: dishId,
       cartId: this.cartID,
@@ -143,8 +143,8 @@ export class NgRestoCartService {
 
   }
 
-  removeDishFromCart(dishId, amount) {
-    const sub = this.net.put('/cart/remove', {
+  removeDishFromCart(dishId:string, amount:number) {
+    const sub:Subscription = this.net.put('/cart/remove', {
       dishId: dishId,
       cartId: this.cartID,
       amount: amount
@@ -166,7 +166,7 @@ export class NgRestoCartService {
 
   }
 
-  checkoutCart(data) {
+  checkoutCart(data: { street: { id: any; }; house: any; housing: any; entrance: any; floor: any; apartment: any; phone: any; name: any; email: any; }) {
     let order = {
       cartId: this.cartID,
       address: {
@@ -189,7 +189,13 @@ export class NgRestoCartService {
 
   }
 
-  orderCart(data) {
+  orderCart(data: {
+      [x: string]: any; cartId?: any; address?: {
+        streetId: any; home: any; housing: any;
+        // index: "1278",
+        entrance: any; floor: any; apartment: any;
+      } | { streetId: any; home: any; housing: any; doorphone: any; entrance: any; floor: any; apartment: any; }; customer?: { phone: any; name: any; mail: any; } | { phone: string; mail: any; name: any; }; comment?: string; personsCount?: any;
+    }) {
     return this.net.post<any, { cart: Cart, message: any, action?: { paymentRedirect: string, [key: string]: string } }>('/order', data)
       .pipe(
         tap(
@@ -219,7 +225,7 @@ export class NgRestoCartService {
       );
   }
 
-  checkStreetV2(data): Observable<{ cart: Cart, message: any }> {
+  checkStreetV2(data: { [key: string]: any; }): Observable<{ cart: Cart, message: any }> {
     return this.net.post<any, { cart: Cart, message: any }>('/check', data)
       .pipe(
         tap(
@@ -233,8 +239,15 @@ export class NgRestoCartService {
       );
   }
 
-  checkStreet(data): void {
-    const sub = this.net.post<any, { cart: Cart, message: any }>('/check', data).subscribe(
+  checkStreet(data: {
+      cartId: any; comment: any; address: { /*this.eventer.emitMessageEvent(
+ new EventMessage('success', 'Успех', 'Блюдо успешно удалено')
+ );*/ streetId: any; home: any; housing: any; /*this.eventer.emitMessageEvent(
+ new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
+ )*/ doorphone: any; entrance: any; floor: any; apartment: any;
+      }; customer: { phone: string; mail: any; name: any; }; personsCount: any;
+    }): void {
+    const sub:Subscription = this.net.post<any, { cart: Cart, message: any }>('/check', data).subscribe(
       res => {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
@@ -254,7 +267,7 @@ export class NgRestoCartService {
 
   }
 
-  setCartId(cartID) {
+  setCartId(cartID:string) {
     localStorage.setItem('cartID', cartID);
     this.cartID = cartID;
   }
@@ -268,7 +281,7 @@ export class NgRestoCartService {
     return this.cart;
   }
 
-  setModifires(modifires, messages?: EventMessage[]): void {
+  setModifires(modifires: any[], messages?: EventMessage[]): void {
     this.modifires.next(modifires);
     if (messages) {
       this.modifiresMessage.next(messages);
@@ -466,12 +479,17 @@ export declare interface DishBaseModifier {
   minAmount: number
   modifierId: string
   required: boolean
+  defaultAmount?:number
+  totalAmount?:number
 }
 
 export declare interface DishModifier extends DishBaseModifier {
+  imagesIsset?: boolean;
+  childImagesIsset?: boolean;
   childModifiers: DishChildModifier[]
   childModifiersHaveMinMaxRestrictions: boolean
   group: DishListItem
+  dish?: DishListItem
 }
 
 export declare interface DishChildModifier extends DishBaseModifier {

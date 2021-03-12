@@ -51,12 +51,9 @@ export class CheckoutDirective {
 
     this.cartService.OrderFormChange
       .pipe(
-        filter(() => {
+        filter(() => this.locationId || (this.streetId || this.street) && this.home || this.selfService
           //if((this.locationId || this.streetId) && this.home && this.phone && this.preparePhone(this.phone).length > 11) {
-          if (this.locationId || (this.streetId || this.street) && this.home || this.selfService) {
-            return true;
-          }
-        }),
+        ),
         /*filter(() => {
           const formChangeKey = JSON.stringify({
             1: this.locationId,
@@ -88,7 +85,7 @@ export class CheckoutDirective {
 
     let comment = this.comment || "Не указан";
 
-    let data = {
+    let data: { [key: string]: any } = {
       cartId: this.cart.cartId,
       comment: comment,
       customer: {
@@ -115,7 +112,7 @@ export class CheckoutDirective {
 
 
     if (this.bonuses) {
-      data['bonuses'] = this.bonuses.map(b => {
+      data['bonuses'] = this.bonuses.map((b: { name: any; amount: any; }) => {
         return {
           name: b.name,
           amount: b.amount
@@ -164,7 +161,7 @@ export class CheckoutDirective {
 
     let comment = this.comment || "Не указан";
 
-    let data = {
+    let data: { [key: string]: any } = {
       cartId: this.cart.cartId,
       comment: comment,
       customer: {
@@ -216,7 +213,7 @@ export class CheckoutDirective {
   }
 
 
-  preparePhone(phone) {
+  preparePhone(phone: string) {
     if (!phone) return '';
     phone = '+' + phone.replace(/[^0-9]/gim, '');
     return phone.replace('+8', '+7');

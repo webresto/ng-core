@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build @webresto/ng-core --prod",
+    "build:core": "ng build @webresto/ng-core --prod",
+    "build:cart": "ng build @webresto/ng-cart --prod",
+    "build:user": "ng build @webresto/ng-user --prod",
     "pub": "cd dist && npm publish --access=public",
     "build:pub": "npm run build && npm run pub",
     "test": "ng test",

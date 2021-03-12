@@ -12,15 +12,13 @@ export class SetAmountDirective {
     this.changeAmount(this.action);
   }
 
-  cart:Cart;
+  @Input() cart:Cart;
 
   constructor(private cartService: NgRestoCartService) {
-    const sub = this.cartService.userCart().subscribe(
-      res => this.cart = res, () => { }, () => sub.unsubscribe()
-    );
+
   }
 
-  changeAmount(action) {
+  changeAmount(action:string) {
 
     switch (action) {
       case '+':

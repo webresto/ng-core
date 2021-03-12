@@ -1,29 +1,22 @@
-import { Directive, Renderer2, ElementRef } from '@angular/core';
+import { Directive, Renderer2, ElementRef, Input } from '@angular/core';
 import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
   selector: '[rstAmountCart]'
 })
 export class AmountCartDirective {
-  cart: Cart;
-  amount: string;
+  @Input() cart: Cart;
+
+  get amount(): string {
+    this.renderer.setProperty(this.el.nativeElement, 'innerHTML', String(this.cart?.dishesCount || 0));
+    return String(this.cart?.dishesCount || 0);
+  };
 
   constructor(
-    private cartService: NgRestoCartService,
     private renderer: Renderer2,
     private el: ElementRef
   ) {
 
-    this.amount = '0';
-    this.renderer.setProperty(this.el.nativeElement, 'innerHTML', this.amount);
-    const sub = this.cartService.userCart().subscribe(
-      res => {
-        this.cart = res;
-        this.amount = String(res.dishesCount || 0);
-        this.renderer.setProperty(this.el.nativeElement, 'innerHTML', this.amount);
-      },
-      () => { }, () => sub.unsubscribe()
-    );
   }
 
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NetService } from '@webresto/ng-core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { filter, switchMap, tap } from 'rxjs/operators';
 import {
   Address, SignInRequestData, SignInResponseData, User, UpdateProfileRequestData,
@@ -27,7 +27,7 @@ export class NgRestoUserService {
   private bonusSystems: BehaviorSubject<any[]>;
 
   constructor(private net: NetService) {
-    const isLoggedSubscription = this.isLoggedIn.pipe(
+    const isLoggedSubscription:Subscription = this.isLoggedIn.pipe(
       filter(isLoggedIn => !!isLoggedIn),
       switchMap(() => this.getFavorites()),
       switchMap(() => this.getProfile()),

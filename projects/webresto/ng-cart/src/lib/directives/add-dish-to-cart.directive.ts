@@ -1,5 +1,4 @@
 import { Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
 import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
@@ -7,21 +6,10 @@ import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 })
 export class AddDishToCartDirective {
 
-  cart:Cart;
+  @Input() cart:Cart;
   @Input() modifires: any;
 
-  constructor(private cartService: NgRestoCartService) {
-
-    const sub = this.cartService.userCart().pipe(
-      switchMap(
-        res => {
-          this.cart = res;
-          return this.cartService.getModifires();
-        })
-    ).subscribe(
-      res => this.modifires = res, () => { }, () => sub.unsubscribe()
-    );
-  }
+  constructor(private cartService: NgRestoCartService) {  }
 
 
   @Input() dish: any;
@@ -37,17 +25,15 @@ export class AddDishToCartDirective {
     this.addDishToCart(this.dish.id, this.amountDish)
   }
 
-  private addDishToCart(dishID, amount) {
+  private addDishToCart(dishID: string, amount: string) {
 
     let data = {
       dishId: dishID,
       amount: amount,
-      cartId: undefined,
+      cartId: this.cart.cartId,
       modifiers: this.modifires,
       comment: this.comment
     };
-
-    if (this.cart.cartId) data.cartId = this.cart.cartId;
 
     this.loading.emit(true);
 

@@ -16,12 +16,12 @@ export class DishCalcDirective implements OnDestroy {
   @Output()  validate:EventEmitter<any> = new EventEmitter();
   @Output()  amountDishToAdd:EventEmitter<any> = new EventEmitter();
 
-  weightTotal;
-  amountDish;
-  price;
+  weightTotal: number;
+  amountDish: number;
+  price: number;
   amountModifires:any = {};
   stateModifiers:any = {};
-  testcountCall;
+  testcountCall: any;
 
   constructor(private renderer:Renderer2,
               private el:ElementRef,
@@ -166,13 +166,13 @@ export class DishCalcDirective implements OnDestroy {
     this.renderer.appendChild(mainItem, priceTotalWrapper);
   }
 
-  generatePrice(priceDish, amount?, modifiresPrice?) {
-    let selected = [];
+  generatePrice(priceDish: number, amount?: undefined, modifiresPrice?: undefined) {
+    let selected: any[] = [];
     if (this.selectedModifiers)
-      this.selectedModifiers.forEach(element => {
+      this.selectedModifiers.forEach((element: { id: any; }) => {
 
-        this.dish.modifiers.forEach(groups => {
-          let mod = groups.childModifiers.filter(x=>x.modifierId === element.id);
+        this.dish.modifiers.forEach((groups: { childModifiers: any[]; group: { id: any; }; }) => {
+          let mod = groups.childModifiers.filter((x: { modifierId: any; })=>x.modifierId === element.id);
           if (mod.length > 0) {
             mod[0].groupId = groups.group.id;
             selected.push(mod[0]);
@@ -192,12 +192,12 @@ export class DishCalcDirective implements OnDestroy {
   }
 
   generateTotalWeight() {
-    let selected = [];
+    let selected: any[] = [];
     if (this.selectedModifiers)
-      this.selectedModifiers.forEach(element => {
+      this.selectedModifiers.forEach((element: { id: any; }) => {
 
-        this.dish.modifiers.forEach(groups => {
-          let mod = groups.childModifiers.filter(x=>x.modifierId === element.id);
+        this.dish.modifiers.forEach((groups: { childModifiers: any[]; group: { id: any; }; }) => {
+          let mod = groups.childModifiers.filter((x: { modifierId: any; })=>x.modifierId === element.id);
           if (mod.length > 0) {
             mod[0].groupId = groups.group.id;
             selected.push(mod[0]);
@@ -218,12 +218,12 @@ export class DishCalcDirective implements OnDestroy {
     return (weight).toFixed(0) + " г. <div class='separator'></div>";
   }
 
-  innerTotalWeight(totalWeigthDiv) {
+  innerTotalWeight(totalWeigthDiv: any) {
 
     this.renderer.setProperty(totalWeigthDiv, "innerHTML", this.generateTotalWeight());
   }
 
-  changeAmountdish(value) {
+  changeAmountdish(value: number) {
     this.amountDish = this.amountDish + value;
     if (this.amountDish <= 0) {
       this.amountDish = 1;
@@ -251,7 +251,7 @@ export class DishCalcDirective implements OnDestroy {
 
 
 
-    modifires.forEach(elementGroup => {
+    modifires.forEach((elementGroup: { modifierId: string | number; dish: any; childModifiers: any; group: { name: any; }; }) => {
       this.stateModifiers[elementGroup.modifierId] = {};
       this.amountModifires[elementGroup.modifierId] = {};
 
@@ -266,7 +266,7 @@ export class DishCalcDirective implements OnDestroy {
         );
         this.renderer.appendChild(this.el.nativeElement, groupDiv);
         let modArr = elementGroup.childModifiers;
-        modArr.forEach(element => {
+        modArr.forEach((element: { defaultAmount: number; modifierId: string | number; }) => {
           let modifireDiv = this.modifireDiv(element, elementGroup.modifierId);
           this.renderer.appendChild(groupDiv, modifireDiv);
           if (element.defaultAmount < 1) {
@@ -292,21 +292,21 @@ export class DishCalcDirective implements OnDestroy {
 
   }
 
-  groupDiv(nameGorup) {
+  groupDiv(nameGorup: string) {
     let div = this.renderer.createElement("div");
     this.renderer.addClass(div, "group-modifires-wraper");
     this.renderer.appendChild(div, this.renderer.createText("" + nameGorup));
     return div;
   }
 
-  modifireDiv(element, groupId) {
+  modifireDiv(element: any, groupId: any) {
     let div = this.renderer.createElement("div");
     this.renderer.addClass(div, "additional-item");
     this.renderOneModifire(element, div, groupId);
     return div;
   }
 
-  renderOneModifire(element, modifireDiv, groupId) {
+  renderOneModifire(element: { modifierId: string; dish: { name: any; weight: number; price: string | number; }; minAmount: number; maxAmount: number; defaultAmount: any; }, modifireDiv: any, groupId: any) {
 
     console.info('renderOneModifire', element);
     console.info('renderOneModifire selectedModifiers', this.selectedModifiers);
@@ -454,8 +454,7 @@ export class DishCalcDirective implements OnDestroy {
 
   }
 
-  renderCheckbox(element, isActive, itemQuantity, modifireDiv, groupId) {
-
+  renderCheckbox(element: { modifierId: string; checked?: boolean; }, isActive: boolean, itemQuantity: any, modifireDiv: any, groupId: string | number) {
     let input = this.renderer.createElement("input");
     this.renderer.setAttribute(input, "type", "checkbox");
     this.renderer.setAttribute(input, "id", element.modifierId);
@@ -488,7 +487,7 @@ export class DishCalcDirective implements OnDestroy {
           "input"
         );
 
-        groupDivBlock.forEach(element => {
+        groupDivBlock.forEach((element: { id: any; checked: boolean; }) => {
           if (element.id != e.target.id) element.checked = false;
         });
       }
@@ -509,7 +508,7 @@ export class DishCalcDirective implements OnDestroy {
 
   }
 
-  renderInputButton(element, groupId, itemQuantity, modifireDiv) {
+  renderInputButton(element: { defaultAmount: number; minAmount: number; modifierId: string | number; maxAmount: number; }, groupId: string | number, itemQuantity: any, modifireDiv: any) {
 
     let startAmount;
     if (element.defaultAmount > 0) {
@@ -590,13 +589,13 @@ export class DishCalcDirective implements OnDestroy {
   }
 
   setModifires() {
-    let modifiersToSelect = [];
+    let modifiersToSelect: any[] = [];
 
     /*if(this.selectedModifiers.length && !(Object.values(this.stateModifiers)).length) {
       modifiersToSelect = this.selectedModifiers;
     }*/
 
-    let modifires = [];
+    let modifires: any[] = [];
 
     console.info('setModifires modifiersToSelect', modifiersToSelect);
     console.info('setModifires stateModifiers before', this.stateModifiers);
@@ -616,9 +615,9 @@ export class DishCalcDirective implements OnDestroy {
     this.selectedModifiers = modifires;
 
     if (this.dish.modifiers.length > 0) {
-      let message = [];
+      let message: { type: string; title: string; body: string; }[] = [];
 
-      this.dish.modifiers.forEach(group => {
+      this.dish.modifiers.forEach((group: { required: any; modifierId: string | number; minAmount: number; group: { name: string; }; }) => {
         if (group.required) {
           if (this.stateModifiers[group.modifierId]) {
             let selectedModif = [];
@@ -670,13 +669,13 @@ export class DishCalcDirective implements OnDestroy {
   /* проверяет соотвествет ли максимальное количество модификаторовб если 1 то реализует поведение радиокнопки,
    если максимальное количество больше 1 то генерирует делает выбор всех остальных модификаторов не возможным, генерирует предупреждение*/
 
-  idRadioBox(groupId):boolean {
-    let currentGroup = this.dish.modifiers.find(x => x.modifierId === groupId);
+  idRadioBox(groupId: any):boolean {
+    let currentGroup = this.dish.modifiers.find((x: { modifierId: any; }) => x.modifierId === groupId);
     return currentGroup.minAmount === 1 && currentGroup.maxAmount === 1;
   }
 
   // Проверяет минимальное количество модификаторовкоторые были выбраны
-  checkMinAmountModifires(groupId, modifire) {
+  checkMinAmountModifires(groupId: any, modifire: any) {
   }
 
 

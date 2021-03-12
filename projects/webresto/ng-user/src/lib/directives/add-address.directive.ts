@@ -1,4 +1,5 @@
 import { Directive, HostListener, Input, Output, EventEmitter } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AddAddressRequestData } from '../../models';
 import { NgRestoUserService } from '../services/ng-resto-user.service';
 
@@ -49,7 +50,7 @@ export class AddAddressDirective {
       apartment: this.apartment || '',
       doorphone: this.doorphone || ''
     };
-    const req = this.ngRestoUserService.addAddress(data).subscribe(
+    const req:Subscription = this.ngRestoUserService.addAddress(data).subscribe(
       () => this.success.emit(true),
       error => this.error.emit(error),
       () => req.unsubscribe()
