@@ -11,7 +11,7 @@ import { NgRestoUserService } from '../services/ng-resto-user.service';
 export class ToggleDishToFavoritesDirective implements OnDestroy, OnChanges {
 
   @Input() dish: any;
-  @Output() toogle = new EventEmitter<boolean>();
+  @Output() toggled = new EventEmitter<boolean>();
   @Output() error = new EventEmitter<string>();
 
   @Input() isLoggedIn: boolean;
@@ -29,7 +29,7 @@ export class ToggleDishToFavoritesDirective implements OnDestroy, OnChanges {
 
 
   ngOnDestroy(): void {
-    [this.toogle, this.error].forEach(emitter => emitter.complete());
+    [this.toggled, this.error].forEach(emitter => emitter.complete());
   }
 
   ngOnChanges() {
@@ -54,7 +54,7 @@ export class ToggleDishToFavoritesDirective implements OnDestroy, OnChanges {
       .addDishToFavorites(this.dish)
       .subscribe(
         () => {
-          this.toogle.emit(true);
+          this.toggled.emit(true);
           this.renderer.addClass(this.element.nativeElement, 'selected');
         },
         error => this.error.emit(error)
@@ -64,7 +64,7 @@ export class ToggleDishToFavoritesDirective implements OnDestroy, OnChanges {
   removeDishFromFavorites() {
     const req:Subscription = this.ngRestoUserService.removeDishFromFavorites(this.dish).subscribe(
       () => {
-        this.toogle.emit(false);
+        this.toggled.emit(false);
         this.renderer.removeClass(this.element.nativeElement, 'selected');
       },
       error => this.error.emit(error),
