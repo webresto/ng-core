@@ -1,4 +1,5 @@
 import { Directive, Input, Output, HostListener, EventEmitter, SimpleChanges } from '@angular/core';
+import { Cart } from '@webresto/ng-cart';
 import { filter, debounceTime, } from 'rxjs/operators'
 import { NgRestoCartService } from '../services/ng-restocart.service';
 
@@ -35,19 +36,15 @@ export class CheckoutDirective {
   @Input() date: string;
   @Input() notifyMethodId: string;
 
-  @Output() success = new EventEmitter<boolean>();
+  @Output() success = new EventEmitter<string>();
   @Output() error = new EventEmitter<string>();
   @Output() isChecking = new EventEmitter<boolean>();
 
 
-  cart: any;
+  @Input() cart: Cart;
   lastFormChangeKey: string;
 
   constructor(private cartService: NgRestoCartService) {
-
-    this.cartService
-      .userCart()
-      .subscribe(cart => this.cart = cart);
 
     this.cartService.OrderFormChange
       .pipe(

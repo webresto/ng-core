@@ -1,5 +1,5 @@
 import { Directive, Renderer2, ElementRef, Input } from '@angular/core';
-import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
+import { Cart } from '../services/ng-restocart.service';
 
 @Directive({
   selector: '[rstAmountCart]'

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Config } from '../config';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { delay, mergeMap, retryWhen } from 'rxjs/operators';
+import { delay, mergeMap, retryWhen,shareReplay } from 'rxjs/operators';
 
 const getErrorMessage = () =>
   `Tried to load Resource over XHR for 5 times without success. Giving up.`;
@@ -38,7 +38,8 @@ export class NetService {
       : this.config.url + url;
     return this.http.get<T>(url, { headers: options.headers, params: options.params })
       .pipe(
-        retryWithBackoff() // retry a failed request up to 5 times
+        retryWithBackoff(), // retry a failed request up to 5 times,
+        shareReplay(1)
       );
   }
 
@@ -48,7 +49,9 @@ export class NetService {
       ? this.config.url + this.config.prefix + this.config.versionModule + url
       : this.config.url + url;
 
-    return this.http.put(url, data);
+    return this.http.put(url, data).pipe(
+      shareReplay(1)
+    );
   }
 
   public post<T = any, R = any>(url: string, data: T, isApi: boolean = true, options: {
@@ -61,7 +64,9 @@ export class NetService {
       : this.config.url + url;
 
     return this.http.post<R>(url, data, { headers: options.headers, params: options.params }).pipe(
-      retryWithBackoff() // retry a failed request up to 5 times
+      retryWithBackoff(),
+      shareReplay(1)
+      // retry a failed request up to 5 times
     );;
   }
 

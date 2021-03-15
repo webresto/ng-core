@@ -92,8 +92,8 @@ export class NgRestoCartService {
       );
   }
 
-  setDishCountToCart(dishId:string, amount:number) {
-    const sub:Subscription = this.net.post<any, { cart: Cart, message: any }>('/cart/set', {
+  setDishCountToCart(dishId: string, amount: number) {
+    const sub: Subscription = this.net.post<any, { cart: Cart, message: any }>('/cart/set', {
       dishId: dishId,
       cartId: this.cartID,
       amount: amount
@@ -113,7 +113,7 @@ export class NgRestoCartService {
     );
   }
 
-  setDishComment(dishId:string, comment:string) {
+  setDishComment(dishId: string, comment: string) {
     return this.net.post('/cart/setcomment', {
       dishId: dishId,
       cartId: this.cartID,
@@ -129,7 +129,7 @@ export class NgRestoCartService {
 
   }
 
-  removeDishFromCart$(dishId:string, amount:number) {
+  removeDishFromCart$(dishId: string, amount: number) {
     return this.net.put('/cart/remove', {
       dishId: dishId,
       cartId: this.cartID,
@@ -143,8 +143,8 @@ export class NgRestoCartService {
 
   }
 
-  removeDishFromCart(dishId:string, amount:number) {
-    const sub:Subscription = this.net.put('/cart/remove', {
+  removeDishFromCart(dishId: string, amount: number) {
+    const sub: Subscription = this.net.put('/cart/remove', {
       dishId: dishId,
       cartId: this.cartID,
       amount: amount
@@ -190,12 +190,12 @@ export class NgRestoCartService {
   }
 
   orderCart(data: {
-      [x: string]: any; cartId?: any; address?: {
-        streetId: any; home: any; housing: any;
-        // index: "1278",
-        entrance: any; floor: any; apartment: any;
-      } | { streetId: any; home: any; housing: any; doorphone: any; entrance: any; floor: any; apartment: any; }; customer?: { phone: any; name: any; mail: any; } | { phone: string; mail: any; name: any; }; comment?: string; personsCount?: any;
-    }) {
+    [x: string]: any; cartId?: any; address?: {
+      streetId: any; home: any; housing: any;
+      // index: "1278",
+      entrance: any; floor: any; apartment: any;
+    } | { streetId: any; home: any; housing: any; doorphone: any; entrance: any; floor: any; apartment: any; }; customer?: { phone: any; name: any; mail: any; } | { phone: string; mail: any; name: any; }; comment?: string; personsCount?: any;
+  }) {
     return this.net.post<any, { cart: Cart, message: any, action?: { paymentRedirect: string, [key: string]: string } }>('/order', data)
       .pipe(
         tap(
@@ -240,14 +240,14 @@ export class NgRestoCartService {
   }
 
   checkStreet(data: {
-      cartId: any; comment: any; address: { /*this.eventer.emitMessageEvent(
+    cartId: any; comment: any; address: { /*this.eventer.emitMessageEvent(
  new EventMessage('success', 'Успех', 'Блюдо успешно удалено')
  );*/ streetId: any; home: any; housing: any; /*this.eventer.emitMessageEvent(
  new EventMessage('error', 'Ошибка', 'Не удалось удалить блюдо')
  )*/ doorphone: any; entrance: any; floor: any; apartment: any;
-      }; customer: { phone: string; mail: any; name: any; }; personsCount: any;
-    }): void {
-    const sub:Subscription = this.net.post<any, { cart: Cart, message: any }>('/check', data).subscribe(
+    }; customer: { phone: string; mail: any; name: any; }; personsCount: any;
+  }): void {
+    const sub: Subscription = this.net.post<any, { cart: Cart, message: any }>('/check', data).subscribe(
       res => {
         this.setCartId(res.cart.cartId);
         this.cart.next(res.cart);
@@ -267,7 +267,7 @@ export class NgRestoCartService {
 
   }
 
-  setCartId(cartID:string) {
+  setCartId(cartID: string) {
     localStorage.setItem('cartID', cartID);
     this.cartID = cartID;
   }
@@ -479,8 +479,8 @@ export declare interface DishBaseModifier {
   minAmount: number
   modifierId: string
   required: boolean
-  defaultAmount?:number
-  totalAmount?:number
+  defaultAmount?: number
+  totalAmount?: number
 }
 
 export declare interface DishModifier extends DishBaseModifier {
@@ -511,7 +511,7 @@ export declare interface WorkTime extends WorkTimeBase {
 
 export declare interface RestrictionsOrder {
   minDeliveryTime: string;
-  deliveryDescription:string;
+  deliveryDescription: string;
   deliveryToTimeEnabled?: boolean;
   periodPossibleForOrder: number;
   timezone: string;

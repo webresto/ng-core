@@ -11,7 +11,6 @@ export class AddDishToCartDirective {
 
   constructor(private cartService: NgRestoCartService) {  }
 
-
   @Input() dish: any;
   @Input() amountDish: any;
   @Input() comment: string;
