@@ -1,6 +1,6 @@
 import { Directive, Input, HostListener } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { NgRestoCartService } from '../services/ng-restocart.service';
+import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
   selector: '[rstOrderCart]'
@@ -8,7 +8,7 @@ import { NgRestoCartService } from '../services/ng-restocart.service';
 export class OrderCartUserDirective {
 
   @Input() orderCart: any;
-  cart: any;
+  cart: Cart;
 
   @HostListener('click')
   onClick() {

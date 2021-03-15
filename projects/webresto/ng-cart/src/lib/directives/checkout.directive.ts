@@ -1,7 +1,6 @@
 import { Directive, Input, Output, HostListener, EventEmitter, SimpleChanges } from '@angular/core';
-import { Cart } from '@webresto/ng-cart';
 import { filter, debounceTime, } from 'rxjs/operators'
-import { NgRestoCartService } from '../services/ng-restocart.service';
+import { Cart, NgRestoCartService } from '../services/ng-restocart.service';
 
 @Directive({
   selector: '[rstCheckout]'

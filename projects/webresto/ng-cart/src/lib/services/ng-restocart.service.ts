@@ -278,7 +278,7 @@ export class NgRestoCartService {
   }
 
   userCart(): Observable<Cart> {
-    return this.cart;
+    return this.cart.asObservable();
   }
 
   setModifires(modifires: any[], messages?: EventMessage[]): void {
@@ -289,7 +289,7 @@ export class NgRestoCartService {
   }
 
   getModifires(): Observable<any> {
-    return this.modifires.pipe();
+    return this.modifires.asObservable();
   }
 
   productInCart(product: DishListItem) {
