@@ -5,10 +5,10 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, retryWhen,shareReplay } from 'rxjs/operators';
 
 const getErrorMessage = () =>
-  `Tried to load Resource over XHR for 5 times without success. Giving up.`;
+  `Tried to load Resource over XHR for 1 times without success. Giving up.`;
 
 export function retryWithBackoff() {
-  let retries = 5;
+  let retries = 1;
 
   return (src: Observable<any>) =>
     src.pipe(

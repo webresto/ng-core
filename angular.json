@@ -28,18 +28,6 @@
             "tsConfig": "projects/webresto/ng-core/tsconfig.spec.json",
             "karmaConfig": "projects/webresto/ng-core/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/webresto/ng-core/tsconfig.lib.json",
-              "projects/webresto/ng-core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -68,18 +56,6 @@
             "tsConfig": "projects/webresto/ng-cart/tsconfig.spec.json",
             "karmaConfig": "projects/webresto/ng-cart/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/webresto/ng-cart/tsconfig.lib.json",
-              "projects/webresto/ng-cart/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -107,18 +83,6 @@
             "main": "projects/webresto/ng-user/src/test.ts",
             "tsConfig": "projects/webresto/ng-user/tsconfig.spec.json",
             "karmaConfig": "projects/webresto/ng-user/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/webresto/ng-user/tsconfig.lib.json",
-              "projects/webresto/ng-user/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }

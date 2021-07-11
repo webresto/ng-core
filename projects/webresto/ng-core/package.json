@@ -1,17 +1,20 @@
 {
   "name": "@webresto/ng-core",
+  "author": {
+    "name": "Webresto Team"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/webresto/ng-core.git"
+    "url": "git+https://github.com/webresto/ng-core.git"
   },
-  "version": "0.0.12",
+  "version": "0.0.13",
   "peerDependencies": {
-    "@angular/common": "^11.2.5",
-    "@angular/core": "^11.2.5",
-    "rxjs":"6.6.6"
+    "@angular/common": "^12.1.1",
+    "@angular/core": "^12.1.1",
+    "rxjs":"^7.2.0"
   },
   "dependencies": {
-    "tslib": "^2.1.0"
+    "tslib": "^2.3.0"
   },
   "bugs": {
     "url": "https://github.com/webresto/ng-core/issues"
